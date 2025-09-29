@@ -5,9 +5,9 @@ import sys
 sys.path.insert(0, os.path.abspath('../src'))
 
 # -- Project information -----------------------------------------------------
-project = 'Sphinx-Marimo Example'
-copyright = '2024'
-author = 'Your Name'
+project = 'Sphinx-Marimo'
+copyright = '2025'
+author = 'Vincent D. Warmerdam'
 release = '0.1.0'
 
 # -- General configuration ---------------------------------------------------

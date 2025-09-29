@@ -66,11 +66,11 @@ To build the documentation with embedded notebooks:
 
 .. code-block:: bash
 
-   # Using Sphinx directly
-   sphinx-build -b html docs docs/_build
+   # Using just
+   just build-docs
 
-   # Or using Make
-   cd docs && make html
+   # Or using Sphinx directly
+   sphinx-build -b html _docs docs
 
 The build process will:
 

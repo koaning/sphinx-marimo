@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>API Reference &#8212; Sphinx-Marimo Example 0.1.0 documentation</title>
+    <title>API Reference &#8212; Sphinx-Marimo 0.1.0 documentation</title>
   
   
   
@@ -111,7 +111,7 @@
   
   
   
-    <p class="title logo__title">Sphinx-Marimo Example 0.1.0 documentation</p>
+    <p class="title logo__title">Sphinx-Marimo 0.1.0 documentation</p>
   
 </a></div>
     
@@ -460,132 +460,6 @@
 </dd></dl>
 
 </section>
-<section id="builder-module">
-<h2>Builder Module<a class="headerlink" href="#builder-module" title="Link to this heading">#</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="sphinx_marimo.builder.MarimoBuilder">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sphinx_marimo.builder.</span></span><span class="sig-name descname"><span class="pre">MarimoBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">build_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sphinx_marimo.builder.MarimoBuilder" title="Link to this definition">#</a></dt>
-<dd><p>Handles building Marimo notebooks to WASM format.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>source_dir</strong> (<em>pathlib.Path</em>) – Directory containing source notebooks</p></li>
-<li><p><strong>build_dir</strong> (<em>pathlib.Path</em>) – Directory for build artifacts</p></li>
-<li><p><strong>static_dir</strong> (<em>pathlib.Path</em>) – Directory for static output files</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="sphinx_marimo.builder.MarimoBuilder.build_all_notebooks">
-<span class="sig-name descname"><span class="pre">build_all_notebooks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sphinx_marimo.builder.MarimoBuilder.build_all_notebooks" title="Link to this definition">#</a></dt>
-<dd><p>Build all notebooks found in the source directory.</p>
-<p>This method:</p>
-<ol class="arabic simple">
-<li><p>Discovers all <code class="docutils literal notranslate"><span class="pre">.py</span></code> files in the source directory</p></li>
-<li><p>Builds each notebook using <code class="docutils literal notranslate"><span class="pre">marimo</span> <span class="pre">export</span> <span class="pre">html-wasm</span></code></p></li>
-<li><p>Copies the output to the static directory</p></li>
-<li><p>Generates a manifest of available notebooks</p></li>
-</ol>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sphinx_marimo.builder.MarimoBuilder._build_notebook">
-<span class="sig-name descname"><span class="pre">_build_notebook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notebook_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sphinx_marimo.builder.MarimoBuilder._build_notebook" title="Link to this definition">#</a></dt>
-<dd><p>Build a single notebook to WASM format.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>notebook_path</strong> (<em>pathlib.Path</em>) – Path to the notebook file</p></li>
-<li><p><strong>output_dir</strong> (<em>pathlib.Path</em>) – Directory for output files</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="static-files">
-<h2>Static Files<a class="headerlink" href="#static-files" title="Link to this heading">#</a></h2>
-<p>The extension provides two static files:</p>
-<dl class="simple">
-<dt><strong>marimo-embed.css</strong></dt><dd><p>Styles for embedded notebooks, including:</p>
-<ul class="simple">
-<li><p>Container styling</p></li>
-<li><p>Loading indicators</p></li>
-<li><p>Error states</p></li>
-<li><p>Responsive design</p></li>
-</ul>
-</dd>
-<dt><strong>marimo-loader.js</strong></dt><dd><p>JavaScript for managing embedded notebooks:</p>
-<ul class="simple">
-<li><p>Iframe initialization</p></li>
-<li><p>Message passing between parent and iframe</p></li>
-<li><p>Auto-resize functionality</p></li>
-<li><p>Manifest loading</p></li>
-</ul>
-</dd>
-</dl>
-</section>
-<section id="javascript-api">
-<h2>JavaScript API<a class="headerlink" href="#javascript-api" title="Link to this heading">#</a></h2>
-<dl class="js data">
-<dt class="sig sig-object js" id="window.MarimoLoader">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">window</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">MarimoLoader</span></span></span><a class="headerlink" href="#window.MarimoLoader" title="Link to this definition">#</a></dt>
-<dd><p>Global object for managing Marimo notebooks.</p>
-<dl class="js function">
-<dt class="sig sig-object js" id="window.load">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">window</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">load</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebookName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#window.load" title="Link to this definition">#</a></dt>
-<dd><p>Load a notebook into a container.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>container</strong> – DOM element containing the iframe</p></li>
-<li><p><strong>notebookName</strong> – Name of the notebook to load</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="js function">
-<dt class="sig sig-object js" id="loadManifest">
-<span class="sig-name descname"><span class="n"><span class="pre">loadManifest</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#loadManifest" title="Link to this definition">#</a></dt>
-<dd><p>Load the notebook manifest from the static directory.</p>
-</dd></dl>
-
-<dl class="js function">
-<dt class="sig sig-object js" id="initializeNotebook">
-<span class="sig-name descname"><span class="n"><span class="pre">initializeNotebook</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebookName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initializeNotebook" title="Link to this definition">#</a></dt>
-<dd><p>Initialize a loaded notebook iframe.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>iframe</strong> – The iframe element</p></li>
-<li><p><strong>notebookName</strong> – Name of the notebook</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="extending-the-extension">
-<h2>Extending the Extension<a class="headerlink" href="#extending-the-extension" title="Link to this heading">#</a></h2>
-<p>To extend or customize the extension:</p>
-<ol class="arabic simple">
-<li><p><strong>Custom notebook processing</strong>: Override <code class="docutils literal notranslate"><span class="pre">MarimoBuilder._build_notebook()</span></code></p></li>
-<li><p><strong>Additional directives</strong>: Add new directives in the <code class="docutils literal notranslate"><span class="pre">setup()</span></code> function</p></li>
-<li><p><strong>Custom themes</strong>: Modify <code class="docutils literal notranslate"><span class="pre">marimo-embed.css</span></code></p></li>
-<li><p><strong>Advanced features</strong>: Hook into Sphinx events for custom processing</p></li>
-</ol>
-<p>Example of adding a custom configuration:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span><span class="s1">&#39;marimo_custom_option&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;html&#39;</span><span class="p">)</span>
-    <span class="c1"># ... rest of setup</span>
-</pre></div>
-</div>
-</section>
 </section>
 
 
@@ -648,25 +522,6 @@
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#builder-module">Builder Module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sphinx_marimo.builder.MarimoBuilder"><code class="docutils literal notranslate"><span class="pre">sphinx_marimo.builder.MarimoBuilder</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sphinx_marimo.builder.MarimoBuilder.build_all_notebooks"><code class="docutils literal notranslate"><span class="pre">sphinx_marimo.builder.MarimoBuilder.build_all_notebooks()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sphinx_marimo.builder.MarimoBuilder._build_notebook"><code class="docutils literal notranslate"><span class="pre">sphinx_marimo.builder.MarimoBuilder._build_notebook()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-files">Static Files</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#javascript-api">JavaScript API</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#window.MarimoLoader"><code class="docutils literal notranslate"><span class="pre">window.MarimoLoader</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#window.load"><code class="docutils literal notranslate"><span class="pre">window.load()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#loadManifest"><code class="docutils literal notranslate"><span class="pre">loadManifest()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#initializeNotebook"><code class="docutils literal notranslate"><span class="pre">initializeNotebook()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extending-the-extension">Extending the Extension</a></li>
 </ul>
   </nav></div>
 
@@ -704,7 +559,7 @@
 
   <p class="copyright">
     
-      © Copyright 2024.
+      © Copyright 2025.
       <br/>
     
   </p>
