@@ -1,0 +1,109 @@
+
+/* Gallery Marimo launcher button styles */
+.marimo-gallery-launcher {
+    display: inline-block;
+    margin: 4px 2px;
+    padding: 6px 12px;
+    background-color: #dc3545;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: system-ui, -apple-system, sans-serif;
+    white-space: nowrap;
+}
+
+.marimo-gallery-launcher:hover {
+    background-color: #c82333;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+}
+
+.marimo-gallery-launcher:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(220, 53, 69, 0.3);
+}
+
+/* Integration with Sphinx Gallery download containers */
+.sphx-glr-download-marimo {
+    background-color: transparent;
+    border: none;
+    margin-bottom: 0.5rem;
+    padding: 0.75rem;
+}
+
+.sphx-glr-download-marimo .reference.external {
+    color: #dc3545 !important;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.sphx-glr-download-marimo .reference.external:hover {
+    color: #c82333 !important;
+    text-decoration: underline;
+}
+
+.sphx-glr-download-marimo .xref.download {
+    background-color: transparent;
+    border: none;
+}
+
+/* Sidebar button styling */
+.marimo-sidebar-button {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white !important;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 12px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin-top: 4px;
+}
+
+.marimo-sidebar-button:hover {
+    background-color: #c82333;
+    color: white !important;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+}
+
+.marimo-sidebar-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(220, 53, 69, 0.3);
+}
+
+/* Dark mode support */
+[data-theme="dark"] .marimo-gallery-launcher,
+.theme-dark .marimo-gallery-launcher {
+    background-color: #b02a37;
+}
+
+[data-theme="dark"] .marimo-gallery-launcher:hover,
+.theme-dark .marimo-gallery-launcher:hover {
+    background-color: #dc3545;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .marimo-gallery-launcher {
+        display: block;
+        width: 100%;
+        margin: 2px 0;
+        text-align: center;
+    }
+}
+
+/* Icon support (if icons are added later) */
+.marimo-gallery-launcher .icon {
+    margin-right: 4px;
+    font-size: 11px;
+}

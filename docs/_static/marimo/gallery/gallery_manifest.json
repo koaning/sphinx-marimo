@@ -1,0 +1,8 @@
+{
+  "gallery_notebooks": {
+    "plot_basic_visualization": "marimo/gallery/plot_basic_visualization.html",
+    "plot_interactive_dashboard": "marimo/gallery/plot_interactive_dashboard.html",
+    "plot_machine_learning_demo": "marimo/gallery/plot_machine_learning_demo.html"
+  },
+  "total_count": 3
+}

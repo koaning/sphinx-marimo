@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.ico" />
+    <!-- Preload is necessary because we show these images when we disconnect from the server,
+    but at that point we cannot load these images from the server -->
+    <link rel="preload" href="./assets/gradient-yHQUC_QB.png" as="image" />
+    <link rel="preload" href="./assets/noise-60BoTA8O.png" as="image" />
+    <!-- Preload the fonts -->
+    <link rel="preload" href="./assets/Lora-VariableFont_wght-B2ootaw-.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/PTSans-Regular-CxL0S8W7.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/PTSans-Bold-D9fedIX3.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Regular-BTCkDNvf.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Medium-DU3aDxX5.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Bold-CLVRCuM9.ttf" as="font" crossorigin="anonymous" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="a marimo app" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./manifest.json" />
+
+    <script data-marimo="true">
+      function __resizeIframe(obj) {
+        var scrollbarHeight = 20; // Max between windows, mac, and linux
+
+        function setHeight() {
+          var element = obj.contentWindow.document.documentElement;
+          // If there is no vertical scrollbar, we don't need to resize the iframe
+          if (element.scrollHeight === element.clientHeight) {
+            return;
+          }
+
+          // Create a new height that includes the scrollbar height if it's visible
+          var hasHorizontalScrollbar = element.scrollWidth > element.clientWidth;
+          var newHeight = element.scrollHeight + (hasHorizontalScrollbar ? scrollbarHeight : 0);
+
+          // Only update the height if it's different from the current height
+          if (obj.style.height !== `${newHeight}px`) {
+            obj.style.height = `${newHeight}px`;
+          }
+        }
+
+        // Resize the iframe to the height of the content and bottom scrollbar height
+        setHeight();
+
+        // Resize the iframe when the content changes
+        const resizeObserver = new ResizeObserver((entries) => {
+          setHeight();
+        });
+        resizeObserver.observe(obj.contentWindow.document.body);
+      }
+    </script>
+    <marimo-filename hidden>notebook.py</marimo-filename>
+    <!-- TODO(Trevor): Legacy, required by VS Code plugin. Remove when plugin is updated (see marimo/server/_templates/template.py) -->
+    <marimo-version data-version="{{ version }}" hidden></marimo-version>
+    <marimo-user-config data-config="{{ user_config }}" hidden></marimo-user-config>
+    <marimo-server-token data-token="{{ server_token }}" hidden></marimo-server-token>
+    <!-- /TODO -->
+    <title>plot machine learning demo</title>
+    <script type="module" crossorigin src="./assets/index-CelXfcd8.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CGDMlQfO.css">
+  <marimo-wasm hidden=""></marimo-wasm>
+    <script>
+        if (window.location.protocol === 'file:') {
+            alert('Warning: This file must be served by an HTTP server to function correctly.');
+        }
+    </script>
+    
+    <style>
+        #save-button {
+            display: none !important;
+        }
+        #filename-input {
+            display: none !important;
+        }
+    </style>
+    <marimo-code hidden="">import%20marimo%0A%0A__generated_with%20%3D%20%220.16.2%22%0Aapp%20%3D%20marimo.App()%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(%0A%20%20%20%20%20%20%20%20r%22%22%22%0A%0A%20%20%20%20%20%20%20%20%23%20Machine%20Learning%20Visualization%0A%0A%20%20%20%20%20%20%20%20This%20example%20demonstrates%20a%20simple%20machine%20learning%20workflow%20with%20visualization.%0A%20%20%20%20%20%20%20%20The%20Marimo%20version%20allows%20interactive%20parameter%20tuning%20and%20real-time%20updates.%0A%0A%20%20%20%20%20%20%20%20%22%22%22%0A%20%20%20%20)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_()%3A%0A%20%20%20%20import%20matplotlib.pyplot%20as%20plt%0A%20%20%20%20import%20numpy%20as%20np%0A%20%20%20%20from%20sklearn.datasets%20import%20make_classification%0A%20%20%20%20from%20sklearn.model_selection%20import%20train_test_split%0A%20%20%20%20from%20sklearn.ensemble%20import%20RandomForestClassifier%0A%20%20%20%20from%20sklearn.metrics%20import%20accuracy_score%2C%20classification_report%0A%0A%20%20%20%20%23%20Generate%20synthetic%20dataset%0A%20%20%20%20print(%22Generating%20synthetic%20classification%20dataset...%22)%0A%20%20%20%20X%2C%20y%20%3D%20make_classification(%0A%20%20%20%20%20%20%20%20n_samples%3D1000%2C%0A%20%20%20%20%20%20%20%20n_features%3D2%2C%0A%20%20%20%20%20%20%20%20n_redundant%3D0%2C%0A%20%20%20%20%20%20%20%20n_informative%3D2%2C%0A%20%20%20%20%20%20%20%20n_clusters_per_class%3D1%2C%0A%20%20%20%20%20%20%20%20n_classes%3D3%2C%0A%20%20%20%20%20%20%20%20random_state%3D42%0A%20%20%20%20)%0A%0A%20%20%20%20%23%20Split%20the%20data%0A%20%20%20%20X_train%2C%20X_test%2C%20y_train%2C%20y_test%20%3D%20train_test_split(%0A%20%20%20%20%20%20%20%20X%2C%20y%2C%20test_size%3D0.3%2C%20random_state%3D42%0A%20%20%20%20)%0A%0A%20%20%20%20%23%20Train%20model%0A%20%20%20%20print(%22Training%20Random%20Forest%20classifier...%22)%0A%20%20%20%20model%20%3D%20RandomForestClassifier(n_estimators%3D100%2C%20random_state%3D42)%0A%20%20%20%20model.fit(X_train%2C%20y_train)%0A%0A%20%20%20%20%23%20Make%20predictions%0A%20%20%20%20y_pred%20%3D%20model.predict(X_test)%0A%20%20%20%20accuracy%20%3D%20accuracy_score(y_test%2C%20y_pred)%0A%0A%20%20%20%20%23%20Create%20visualization%0A%20%20%20%20fig%2C%20((ax1%2C%20ax2)%2C%20(ax3%2C%20ax4))%20%3D%20plt.subplots(2%2C%202%2C%20figsize%3D(15%2C%2012))%0A%0A%20%20%20%20%23%20Original%20dataset%0A%20%20%20%20colors%20%3D%20%5B'red'%2C%20'blue'%2C%20'green'%5D%0A%20%20%20%20for%20i%2C%20color%20in%20enumerate(colors)%3A%0A%20%20%20%20%20%20%20%20mask%20%3D%20y%20%3D%3D%20i%0A%20%20%20%20%20%20%20%20ax1.scatter(X%5Bmask%2C%200%5D%2C%20X%5Bmask%2C%201%5D%2C%20c%3Dcolor%2C%20alpha%3D0.6%2C%20label%3Df'Class%20%7Bi%7D')%0A%20%20%20%20ax1.set_title('Original%20Dataset'%2C%20fontsize%3D14%2C%20fontweight%3D'bold')%0A%20%20%20%20ax1.legend()%0A%20%20%20%20ax1.grid(True%2C%20alpha%3D0.3)%0A%0A%20%20%20%20%23%20Training%20set%0A%20%20%20%20for%20i%2C%20color%20in%20enumerate(colors)%3A%0A%20%20%20%20%20%20%20%20mask%20%3D%20y_train%20%3D%3D%20i%0A%20%20%20%20%20%20%20%20ax2.scatter(X_train%5Bmask%2C%200%5D%2C%20X_train%5Bmask%2C%201%5D%2C%20c%3Dcolor%2C%20alpha%3D0.6%2C%20label%3Df'Class%20%7Bi%7D')%0A%20%20%20%20ax2.set_title('Training%20Set'%2C%20fontsize%3D14%2C%20fontweight%3D'bold')%0A%20%20%20%20ax2.legend()%0A%20%20%20%20ax2.grid(True%2C%20alpha%3D0.3)%0A%0A%20%20%20%20%23%20Test%20set%20with%20predictions%0A%20%20%20%20for%20i%2C%20color%20in%20enumerate(colors)%3A%0A%20%20%20%20%20%20%20%20mask%20%3D%20y_test%20%3D%3D%20i%0A%20%20%20%20%20%20%20%20ax3.scatter(X_test%5Bmask%2C%200%5D%2C%20X_test%5Bmask%2C%201%5D%2C%20c%3Dcolor%2C%20alpha%3D0.6%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20marker%3D'o'%2C%20s%3D50%2C%20label%3Df'True%20Class%20%7Bi%7D')%0A%0A%20%20%20%20%20%20%20%20mask_pred%20%3D%20y_pred%20%3D%3D%20i%0A%20%20%20%20%20%20%20%20ax3.scatter(X_test%5Bmask_pred%2C%200%5D%2C%20X_test%5Bmask_pred%2C%201%5D%2C%20c%3Dcolor%2C%20alpha%3D0.3%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20marker%3D'x'%2C%20s%3D100%2C%20label%3Df'Pred%20Class%20%7Bi%7D')%0A%0A%20%20%20%20ax3.set_title(f'Test%20Set%3A%20True%20vs%20Predicted%20(Accuracy%3A%20%7Baccuracy%3A.2f%7D)'%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20fontsize%3D14%2C%20fontweight%3D'bold')%0A%20%20%20%20ax3.legend()%0A%20%20%20%20ax3.grid(True%2C%20alpha%3D0.3)%0A%0A%20%20%20%20%23%20Feature%20importance%0A%20%20%20%20feature_names%20%3D%20%5B'Feature%201'%2C%20'Feature%202'%5D%0A%20%20%20%20importances%20%3D%20model.feature_importances_%0A%20%20%20%20ax4.bar(feature_names%2C%20importances%2C%20color%3D%5B'skyblue'%2C%20'lightcoral'%5D)%0A%20%20%20%20ax4.set_title('Feature%20Importance'%2C%20fontsize%3D14%2C%20fontweight%3D'bold')%0A%20%20%20%20ax4.set_ylabel('Importance')%0A%20%20%20%20ax4.grid(True%2C%20alpha%3D0.3)%0A%0A%20%20%20%20plt.tight_layout()%0A%20%20%20%20plt.show()%0A%0A%20%20%20%20%23%20Print%20results%0A%20%20%20%20print(%22%5Cn%3D%3D%3D%20Model%20Performance%20%3D%3D%3D%22)%0A%20%20%20%20print(f%22Accuracy%3A%20%7Baccuracy%3A.3f%7D%22)%0A%20%20%20%20print(f%22Feature%20Importances%3A%22)%0A%20%20%20%20for%20name%2C%20importance%20in%20zip(feature_names%2C%20importances)%3A%0A%20%20%20%20%20%20%20%20print(f%22%20%20%7Bname%7D%3A%20%7Bimportance%3A.3f%7D%22)%0A%0A%20%20%20%20print(f%22%5CnDetailed%20Classification%20Report%3A%22)%0A%20%20%20%20print(classification_report(y_test%2C%20y_pred))%0A%0A%20%20%20%20print(%22%5Cn%F0%9F%9A%80%20Launch%20in%20Marimo%20to%3A%22)%0A%20%20%20%20print(%22%20%20%20%E2%80%A2%20Adjust%20model%20parameters%20interactively%22)%0A%20%20%20%20print(%22%20%20%20%E2%80%A2%20Try%20different%20algorithms%22)%0A%20%20%20%20print(%22%20%20%20%E2%80%A2%20Modify%20dataset%20parameters%22)%0A%20%20%20%20print(%22%20%20%20%E2%80%A2%20See%20real-time%20performance%20updates%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_()%3A%0A%20%20%20%20import%20marimo%20as%20mo%0A%20%20%20%20return%20(mo%2C)%0A%0A%0Aif%20__name__%20%3D%3D%20%22__main__%22%3A%0A%20%20%20%20app.run()%0A</marimo-code></head>
+  <body>
+    <div id="root"></div>
+    <!-- This is a portal for the data editor to render in -->
+    <div id="portal" data-testid="glide-portal" style="position: fixed; left: 0; top: 0; z-index: 9999"></div>
+    <script data-marimo="true">
+      window.__MARIMO_MOUNT_CONFIG__ = {
+            "filename": "notebook.py",
+            "mode": "read",
+            "version": "0.16.2",
+            "serverToken": "unused",
+            "config": {"ai": {"models": {"custom_models": [], "displayed_models": []}}, "completion": {"activate_on_typing": true, "copilot": false}, "display": {"cell_output": "below", "code_editor_font_size": 14, "custom_css": [], "dataframes": "rich", "default_table_max_columns": 50, "default_table_page_size": 10, "default_width": "columns", "reference_highlighting": true, "theme": "light"}, "formatting": {"line_length": 79}, "keymap": {"overrides": {}, "preset": "default"}, "language_servers": {"pylsp": {"enable_flake8": false, "enable_mypy": true, "enable_pydocstyle": false, "enable_pyflakes": false, "enable_pylint": false, "enable_ruff": true, "enabled": true}}, "package_management": {"manager": "uv"}, "runtime": {"auto_instantiate": true, "auto_reload": "off", "default_sql_output": "auto", "on_cell_change": "autorun", "output_max_bytes": 8000000, "reactive_tests": true, "std_stream_max_bytes": 1000000, "watcher_on_save": "lazy"}, "save": {"autosave": "off", "autosave_delay": 1000, "format_on_save": false}, "server": {"browser": "default", "follow_symlink": false}, "snippets": {"custom_paths": [], "include_default_snippets": true}},
+            "configOverrides": {},
+            "appConfig": {"sql_output": "auto", "width": "compact"},
+            "view": {"showAppCode": false},
+            "notebook": null,
+            "session": null,
+            "runtimeConfig": null,
+        };
+    </script>
+  </body>
+</html>

@@ -9,6 +9,7 @@ interactive Marimo notebooks directly in your Sphinx documentation.
    :caption: Contents:
 
    examples
+   gallery
    api
 
 Introduction
@@ -34,6 +35,7 @@ Features
 * **Interactive notebooks**: Full Marimo interactivity in your documentation
 * **Static site compatible**: Works with GitHub Pages, Read the Docs, and other static hosts
 * **Customizable embedding**: Control size, theme, and styling of embedded notebooks
+* **Sphinx Gallery integration**: Automatically adds "launch marimo" buttons to Gallery examples
 
 Installation
 ------------
