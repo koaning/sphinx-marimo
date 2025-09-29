@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>API Reference &#8212; Sphinx-Marimo Example 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/marimo/marimo-embed.css?v=510df22f" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/marimo/marimo-loader.js?v=ddd8502f"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Examples" href="examples.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Sphinx-Marimo Example 0.1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">API Reference</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h1>
+<p>This page documents the Sphinx-Marimo extension API.</p>
+<section id="extension-setup">
+<h2>Extension Setup<a class="headerlink" href="#extension-setup" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sphinx_marimo.setup">
+<span class="sig-prename descclassname"><span class="pre">sphinx_marimo.</span></span><span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sphinx_marimo.setup" title="Link to this definition">#</a></dt>
+<dd><p>Main setup function for the Sphinx extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>app</strong> (<em>sphinx.application.Sphinx</em>) – Sphinx application instance</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Extension metadata dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<p>This function is called by Sphinx during initialization. It registers:</p>
+<ul class="simple">
+<li><p>Configuration values</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">marimo</span></code> directive</p></li>
+<li><p>Event handlers for building notebooks</p></li>
+<li><p>Static CSS and JavaScript files</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="configuration-values">
+<h2>Configuration Values<a class="headerlink" href="#configuration-values" title="Link to this heading">#</a></h2>
+<p>The following configuration values can be set in <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="marimo_notebook_dir">
+<span class="sig-name descname"><span class="pre">marimo_notebook_dir</span></span><a class="headerlink" href="#marimo_notebook_dir" title="Link to this definition">#</a></dt>
+<dd><p>Directory containing Marimo notebook files (relative to source directory).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Default<span class="colon">:</span></dt>
+<dd class="field-even"><p>“notebooks”</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="marimo_build_dir">
+<span class="sig-name descname"><span class="pre">marimo_build_dir</span></span><a class="headerlink" href="#marimo_build_dir" title="Link to this definition">#</a></dt>
+<dd><p>Directory for build artifacts (relative to output directory).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Default<span class="colon">:</span></dt>
+<dd class="field-even"><p>“_build/marimo”</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="marimo_output_dir">
+<span class="sig-name descname"><span class="pre">marimo_output_dir</span></span><a class="headerlink" href="#marimo_output_dir" title="Link to this definition">#</a></dt>
+<dd><p>Directory for static files (relative to output directory).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Default<span class="colon">:</span></dt>
+<dd class="field-even"><p>“_static/marimo”</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="marimo_default_height">
+<span class="sig-name descname"><span class="pre">marimo_default_height</span></span><a class="headerlink" href="#marimo_default_height" title="Link to this definition">#</a></dt>
+<dd><p>Default height for embedded notebooks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Default<span class="colon">:</span></dt>
+<dd class="field-even"><p>“600px”</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="marimo_default_width">
+<span class="sig-name descname"><span class="pre">marimo_default_width</span></span><a class="headerlink" href="#marimo_default_width" title="Link to this definition">#</a></dt>
+<dd><p>Default width for embedded notebooks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Default<span class="colon">:</span></dt>
+<dd class="field-even"><p>“100%”</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="directive">
+<h2>Directive<a class="headerlink" href="#directive" title="Link to this heading">#</a></h2>
+<dl class="rst directive">
+<dt class="sig sig-object rst" id="directive-marimo">
+<span class="sig-name descname"><span class="pre">..</span> <span class="pre">marimo::</span></span><span class="sig-prename descclassname"> <span class="pre">notebook_path</span></span><a class="headerlink" href="#directive-marimo" title="Link to this definition">#</a></dt>
+<dd><p>Embed a Marimo notebook in the documentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param notebook_path<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Path to the notebook file (relative to <code class="docutils literal notranslate"><span class="pre">marimo_notebook_dir</span></code>)</p>
+</dd>
+<dt class="field-even">Type notebook_path<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+<p><strong>Options:</strong></p>
+<dl class="rst directive:option">
+<dt class="sig sig-object rst" id="directive-option-marimo-height">
+<span class="sig-name descname"><span class="pre">:height:</span></span><em class="property"> <span class="pre">(string)</span></em><a class="headerlink" href="#directive-option-marimo-height" title="Link to this definition">#</a></dt>
+<dd><p>Height of the embedded iframe (e.g., “700px”, “80vh”)</p>
+</dd></dl>
+
+<dl class="rst directive:option">
+<dt class="sig sig-object rst" id="directive-option-marimo-width">
+<span class="sig-name descname"><span class="pre">:width:</span></span><em class="property"> <span class="pre">(string)</span></em><a class="headerlink" href="#directive-option-marimo-width" title="Link to this definition">#</a></dt>
+<dd><p>Width of the embedded iframe (e.g., “100%”, “800px”)</p>
+</dd></dl>
+
+<dl class="rst directive:option">
+<dt class="sig sig-object rst" id="directive-option-marimo-class">
+<span class="sig-name descname"><span class="pre">:class:</span></span><em class="property"> <span class="pre">(string)</span></em><a class="headerlink" href="#directive-option-marimo-class" title="Link to this definition">#</a></dt>
+<dd><p>Additional CSS classes to apply to the container</p>
+</dd></dl>
+
+<dl class="rst directive:option">
+<dt class="sig sig-object rst" id="directive-option-marimo-theme">
+<span class="sig-name descname"><span class="pre">:theme:</span></span><em class="property"> <span class="pre">(string)</span></em><a class="headerlink" href="#directive-option-marimo-theme" title="Link to this definition">#</a></dt>
+<dd><p>Theme for the notebook (“light”, “dark”, or “auto”)</p>
+</dd></dl>
+
+<p><strong>Example:</strong></p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">marimo</span><span class="p">::</span> examples/my_notebook.py
+   <span class="nc">:height:</span> 800px
+   <span class="nc">:width:</span> 90%
+   <span class="nc">:theme:</span> dark
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="builder-module">
+<h2>Builder Module<a class="headerlink" href="#builder-module" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sphinx_marimo.builder.MarimoBuilder">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sphinx_marimo.builder.</span></span><span class="sig-name descname"><span class="pre">MarimoBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">build_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sphinx_marimo.builder.MarimoBuilder" title="Link to this definition">#</a></dt>
+<dd><p>Handles building Marimo notebooks to WASM format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_dir</strong> (<em>pathlib.Path</em>) – Directory containing source notebooks</p></li>
+<li><p><strong>build_dir</strong> (<em>pathlib.Path</em>) – Directory for build artifacts</p></li>
+<li><p><strong>static_dir</strong> (<em>pathlib.Path</em>) – Directory for static output files</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sphinx_marimo.builder.MarimoBuilder.build_all_notebooks">
+<span class="sig-name descname"><span class="pre">build_all_notebooks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sphinx_marimo.builder.MarimoBuilder.build_all_notebooks" title="Link to this definition">#</a></dt>
+<dd><p>Build all notebooks found in the source directory.</p>
+<p>This method:</p>
+<ol class="arabic simple">
+<li><p>Discovers all <code class="docutils literal notranslate"><span class="pre">.py</span></code> files in the source directory</p></li>
+<li><p>Builds each notebook using <code class="docutils literal notranslate"><span class="pre">marimo</span> <span class="pre">export</span> <span class="pre">html-wasm</span></code></p></li>
+<li><p>Copies the output to the static directory</p></li>
+<li><p>Generates a manifest of available notebooks</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sphinx_marimo.builder.MarimoBuilder._build_notebook">
+<span class="sig-name descname"><span class="pre">_build_notebook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notebook_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sphinx_marimo.builder.MarimoBuilder._build_notebook" title="Link to this definition">#</a></dt>
+<dd><p>Build a single notebook to WASM format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>notebook_path</strong> (<em>pathlib.Path</em>) – Path to the notebook file</p></li>
+<li><p><strong>output_dir</strong> (<em>pathlib.Path</em>) – Directory for output files</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="static-files">
+<h2>Static Files<a class="headerlink" href="#static-files" title="Link to this heading">#</a></h2>
+<p>The extension provides two static files:</p>
+<dl class="simple">
+<dt><strong>marimo-embed.css</strong></dt><dd><p>Styles for embedded notebooks, including:</p>
+<ul class="simple">
+<li><p>Container styling</p></li>
+<li><p>Loading indicators</p></li>
+<li><p>Error states</p></li>
+<li><p>Responsive design</p></li>
+</ul>
+</dd>
+<dt><strong>marimo-loader.js</strong></dt><dd><p>JavaScript for managing embedded notebooks:</p>
+<ul class="simple">
+<li><p>Iframe initialization</p></li>
+<li><p>Message passing between parent and iframe</p></li>
+<li><p>Auto-resize functionality</p></li>
+<li><p>Manifest loading</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="javascript-api">
+<h2>JavaScript API<a class="headerlink" href="#javascript-api" title="Link to this heading">#</a></h2>
+<dl class="js data">
+<dt class="sig sig-object js" id="window.MarimoLoader">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">window</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">MarimoLoader</span></span></span><a class="headerlink" href="#window.MarimoLoader" title="Link to this definition">#</a></dt>
+<dd><p>Global object for managing Marimo notebooks.</p>
+<dl class="js function">
+<dt class="sig sig-object js" id="window.load">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">window</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">load</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebookName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#window.load" title="Link to this definition">#</a></dt>
+<dd><p>Load a notebook into a container.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>container</strong> – DOM element containing the iframe</p></li>
+<li><p><strong>notebookName</strong> – Name of the notebook to load</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="loadManifest">
+<span class="sig-name descname"><span class="n"><span class="pre">loadManifest</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#loadManifest" title="Link to this definition">#</a></dt>
+<dd><p>Load the notebook manifest from the static directory.</p>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="initializeNotebook">
+<span class="sig-name descname"><span class="n"><span class="pre">initializeNotebook</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebookName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initializeNotebook" title="Link to this definition">#</a></dt>
+<dd><p>Initialize a loaded notebook iframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iframe</strong> – The iframe element</p></li>
+<li><p><strong>notebookName</strong> – Name of the notebook</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="extending-the-extension">
+<h2>Extending the Extension<a class="headerlink" href="#extending-the-extension" title="Link to this heading">#</a></h2>
+<p>To extend or customize the extension:</p>
+<ol class="arabic simple">
+<li><p><strong>Custom notebook processing</strong>: Override <code class="docutils literal notranslate"><span class="pre">MarimoBuilder._build_notebook()</span></code></p></li>
+<li><p><strong>Additional directives</strong>: Add new directives in the <code class="docutils literal notranslate"><span class="pre">setup()</span></code> function</p></li>
+<li><p><strong>Custom themes</strong>: Modify <code class="docutils literal notranslate"><span class="pre">marimo-embed.css</span></code></p></li>
+<li><p><strong>Advanced features</strong>: Hook into Sphinx events for custom processing</p></li>
+</ol>
+<p>Example of adding a custom configuration:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span><span class="s1">&#39;marimo_custom_option&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;html&#39;</span><span class="p">)</span>
+    <span class="c1"># ... rest of setup</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="examples.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Examples</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extension-setup">Extension Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sphinx_marimo.setup"><code class="docutils literal notranslate"><span class="pre">sphinx_marimo.setup()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-values">Configuration Values</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marimo_notebook_dir"><code class="docutils literal notranslate"><span class="pre">marimo_notebook_dir</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marimo_build_dir"><code class="docutils literal notranslate"><span class="pre">marimo_build_dir</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marimo_output_dir"><code class="docutils literal notranslate"><span class="pre">marimo_output_dir</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marimo_default_height"><code class="docutils literal notranslate"><span class="pre">marimo_default_height</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marimo_default_width"><code class="docutils literal notranslate"><span class="pre">marimo_default_width</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directive">Directive</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directive-marimo"><code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">marimo::</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#directive-option-marimo-height"><code class="docutils literal notranslate"><span class="pre">:height:</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#directive-option-marimo-width"><code class="docutils literal notranslate"><span class="pre">:width:</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#directive-option-marimo-class"><code class="docutils literal notranslate"><span class="pre">:class:</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#directive-option-marimo-theme"><code class="docutils literal notranslate"><span class="pre">:theme:</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#builder-module">Builder Module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sphinx_marimo.builder.MarimoBuilder"><code class="docutils literal notranslate"><span class="pre">sphinx_marimo.builder.MarimoBuilder</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sphinx_marimo.builder.MarimoBuilder.build_all_notebooks"><code class="docutils literal notranslate"><span class="pre">sphinx_marimo.builder.MarimoBuilder.build_all_notebooks()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sphinx_marimo.builder.MarimoBuilder._build_notebook"><code class="docutils literal notranslate"><span class="pre">sphinx_marimo.builder.MarimoBuilder._build_notebook()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-files">Static Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#javascript-api">JavaScript API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#window.MarimoLoader"><code class="docutils literal notranslate"><span class="pre">window.MarimoLoader</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#window.load"><code class="docutils literal notranslate"><span class="pre">window.load()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#loadManifest"><code class="docutils literal notranslate"><span class="pre">loadManifest()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#initializeNotebook"><code class="docutils literal notranslate"><span class="pre">initializeNotebook()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extending-the-extension">Extending the Extension</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

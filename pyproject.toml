@@ -1,0 +1,32 @@
+[project]
+name = "sphinx-marimo"
+version = "0.1.0"
+description = "Sphinx extension for embedding Marimo notebooks with WASM support"
+readme = "README.md"
+authors = [
+    { name = "koaning", email = "vincentwarmerdam@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "sphinx>=7.0.0",
+    "marimo>=0.1.0",
+    "pydata-sphinx-theme>=0.13.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+]
+
+[project.entry-points."sphinx.extensions"]
+sphinx_marimo = "sphinx_marimo.extension:setup"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sphinx_marimo"]

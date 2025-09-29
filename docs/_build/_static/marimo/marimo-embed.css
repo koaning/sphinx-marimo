@@ -1,0 +1,61 @@
+
+/* Marimo embed styles */
+.marimo-embed {
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+.marimo-embed iframe {
+    display: block;
+    max-width: 100%;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s;
+}
+
+.marimo-embed iframe:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.marimo-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: system-ui, -apple-system, sans-serif;
+    color: #666;
+    font-size: 14px;
+}
+
+.marimo-loading::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 10px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #667eea;
+    border-radius: 50%;
+    animation: marimo-spin 1s linear infinite;
+}
+
+@keyframes marimo-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.marimo-error {
+    padding: 1rem;
+    background: #fee;
+    border: 1px solid #fcc;
+    border-radius: 4px;
+    color: #c00;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .marimo-embed[data-theme="auto"] iframe {
+        background: #1a1a1a;
+    }
+}

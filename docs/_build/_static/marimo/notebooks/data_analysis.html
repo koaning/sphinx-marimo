@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.ico" />
+    <!-- Preload is necessary because we show these images when we disconnect from the server,
+    but at that point we cannot load these images from the server -->
+    <link rel="preload" href="./assets/gradient-yHQUC_QB.png" as="image" />
+    <link rel="preload" href="./assets/noise-60BoTA8O.png" as="image" />
+    <!-- Preload the fonts -->
+    <link rel="preload" href="./assets/Lora-VariableFont_wght-B2ootaw-.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/PTSans-Regular-CxL0S8W7.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/PTSans-Bold-D9fedIX3.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Regular-BTCkDNvf.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Medium-DU3aDxX5.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Bold-CLVRCuM9.ttf" as="font" crossorigin="anonymous" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="a marimo app" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./manifest.json" />
+
+    <script data-marimo="true">
+      function __resizeIframe(obj) {
+        var scrollbarHeight = 20; // Max between windows, mac, and linux
+
+        function setHeight() {
+          var element = obj.contentWindow.document.documentElement;
+          // If there is no vertical scrollbar, we don't need to resize the iframe
+          if (element.scrollHeight === element.clientHeight) {
+            return;
+          }
+
+          // Create a new height that includes the scrollbar height if it's visible
+          var hasHorizontalScrollbar = element.scrollWidth > element.clientWidth;
+          var newHeight = element.scrollHeight + (hasHorizontalScrollbar ? scrollbarHeight : 0);
+
+          // Only update the height if it's different from the current height
+          if (obj.style.height !== `${newHeight}px`) {
+            obj.style.height = `${newHeight}px`;
+          }
+        }
+
+        // Resize the iframe to the height of the content and bottom scrollbar height
+        setHeight();
+
+        // Resize the iframe when the content changes
+        const resizeObserver = new ResizeObserver((entries) => {
+          setHeight();
+        });
+        resizeObserver.observe(obj.contentWindow.document.body);
+      }
+    </script>
+    <marimo-filename hidden>notebook.py</marimo-filename>
+    <!-- TODO(Trevor): Legacy, required by VS Code plugin. Remove when plugin is updated (see marimo/server/_templates/template.py) -->
+    <marimo-version data-version="{{ version }}" hidden></marimo-version>
+    <marimo-user-config data-config="{{ user_config }}" hidden></marimo-user-config>
+    <marimo-server-token data-token="{{ server_token }}" hidden></marimo-server-token>
+    <!-- /TODO -->
+    <title>data analysis</title>
+    <script type="module" crossorigin src="./assets/index-CelXfcd8.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CGDMlQfO.css">
+  <marimo-wasm hidden=""></marimo-wasm>
+    <script>
+        if (window.location.protocol === 'file:') {
+            alert('Warning: This file must be served by an HTTP server to function correctly.');
+        }
+    </script>
+    
+    <style>
+        #save-button {
+            display: none !important;
+        }
+        #filename-input {
+            display: none !important;
+        }
+    </style>
+    <marimo-code hidden="">import%20marimo%0A%0A__generated_with%20%3D%20%220.16.2%22%0Aapp%20%3D%20marimo.App()%0A%0A%0A%40app.cell%0Adef%20_()%3A%0A%20%20%20%20import%20marimo%20as%20mo%0A%20%20%20%20import%20pandas%20as%20pd%0A%20%20%20%20import%20numpy%20as%20np%0A%20%20%20%20return%20mo%2C%20np%2C%20pd%0A%0A%0A%40app.cell%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(%22%23%20Data%20Analysis%20Example%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(np%2C%20pd)%3A%0A%20%20%20%20%23%20Generate%20sample%20data%0A%20%20%20%20np.random.seed(42)%0A%20%20%20%20df%20%3D%20pd.DataFrame(%7B%0A%20%20%20%20%20%20%20%20'Date'%3A%20pd.date_range('2024-01-01'%2C%20periods%3D100)%2C%0A%20%20%20%20%20%20%20%20'Sales'%3A%20np.random.randint(50%2C%20200%2C%20100)%2C%0A%20%20%20%20%20%20%20%20'Customers'%3A%20np.random.randint(10%2C%2050%2C%20100)%2C%0A%20%20%20%20%20%20%20%20'Region'%3A%20np.random.choice(%5B'North'%2C%20'South'%2C%20'East'%2C%20'West'%5D%2C%20100)%0A%20%20%20%20%7D)%0A%20%20%20%20df%5B'Revenue'%5D%20%3D%20df%5B'Sales'%5D%20*%20np.random.uniform(10%2C%2020%2C%20100)%0A%20%20%20%20return%20(df%2C)%0A%0A%0A%40app.cell%0Adef%20_(df%2C%20mo)%3A%0A%20%20%20%20mo.md(f%22%23%23%20Dataset%20Overview%5Cn%5CnTotal%20records%3A%20**%7Blen(df)%7D**%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(df)%3A%0A%20%20%20%20df.head(10)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(df%2C%20mo)%3A%0A%20%20%20%20region_select%20%3D%20mo.ui.dropdown(%0A%20%20%20%20%20%20%20%20options%3D%5B'All'%5D%20%2B%20list(df%5B'Region'%5D.unique())%2C%0A%20%20%20%20%20%20%20%20value%3D'All'%2C%0A%20%20%20%20%20%20%20%20label%3D'Filter%20by%20Region'%0A%20%20%20%20)%0A%20%20%20%20region_select%0A%20%20%20%20return%20(region_select%2C)%0A%0A%0A%40app.cell%0Adef%20_(df%2C%20region_select)%3A%0A%20%20%20%20filtered_df%20%3D%20(%0A%20%20%20%20%20%20%20%20df%20if%20region_select.value%20%3D%3D%20'All'%0A%20%20%20%20%20%20%20%20else%20df%5Bdf%5B'Region'%5D%20%3D%3D%20region_select.value%5D%0A%20%20%20%20)%0A%20%20%20%20return%20(filtered_df%2C)%0A%0A%0A%40app.cell%0Adef%20_(filtered_df%2C%20mo%2C%20region_select)%3A%0A%20%20%20%20stats%20%3D%20filtered_df.describe()%0A%20%20%20%20mo.md(f%22%22%22%0A%20%20%20%20%23%23%20Statistics%20for%20%7Bregion_select.value%7D%20Region%0A%0A%20%20%20%20-%20Average%20Sales%3A%20**%7Bfiltered_df%5B'Sales'%5D.mean()%3A.2f%7D**%0A%20%20%20%20-%20Total%20Revenue%3A%20**%24%7Bfiltered_df%5B'Revenue'%5D.sum()%3A%2C.2f%7D**%0A%20%20%20%20-%20Average%20Customers%3A%20**%7Bfiltered_df%5B'Customers'%5D.mean()%3A.1f%7D**%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(df%2C%20filtered_df%2C%20plt%2C%20region_select)%3A%0A%20%20%20%20fig%2C%20axes%20%3D%20plt.subplots(1%2C%202%2C%20figsize%3D(12%2C%204))%0A%0A%20%20%20%20%23%20Sales%20over%20time%0A%20%20%20%20axes%5B0%5D.plot(filtered_df%5B'Date'%5D%2C%20filtered_df%5B'Sales'%5D.rolling(7).mean())%0A%20%20%20%20axes%5B0%5D.set_title('7-Day%20Moving%20Average%20of%20Sales')%0A%20%20%20%20axes%5B0%5D.set_xlabel('Date')%0A%20%20%20%20axes%5B0%5D.set_ylabel('Sales')%0A%20%20%20%20axes%5B0%5D.grid(True%2C%20alpha%3D0.3)%0A%0A%20%20%20%20%23%20Revenue%20by%20Region%0A%20%20%20%20if%20region_select.value%20%3D%3D%20'All'%3A%0A%20%20%20%20%20%20%20%20region_revenue%20%3D%20df.groupby('Region')%5B'Revenue'%5D.sum()%0A%20%20%20%20%20%20%20%20axes%5B1%5D.bar(region_revenue.index%2C%20region_revenue.values)%0A%20%20%20%20%20%20%20%20axes%5B1%5D.set_title('Total%20Revenue%20by%20Region')%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20axes%5B1%5D.hist(filtered_df%5B'Revenue'%5D%2C%20bins%3D20)%0A%20%20%20%20%20%20%20%20axes%5B1%5D.set_title(f'Revenue%20Distribution%20-%20%7Bregion_select.value%7D')%0A%0A%20%20%20%20axes%5B1%5D.set_xlabel('Region'%20if%20region_select.value%20%3D%3D%20'All'%20else%20'Revenue')%0A%20%20%20%20axes%5B1%5D.set_ylabel('Total%20Revenue'%20if%20region_select.value%20%3D%3D%20'All'%20else%20'Frequency')%0A%20%20%20%20axes%5B1%5D.grid(True%2C%20alpha%3D0.3)%0A%0A%20%20%20%20plt.tight_layout()%0A%20%20%20%20fig%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(%22%22%22%0A%20%20%20%20---%0A%0A%20%20%20%20This%20notebook%20demonstrates%20data%20analysis%20capabilities%20with%3A%0A%20%20%20%20-%20Pandas%20DataFrames%0A%20%20%20%20-%20Interactive%20filtering%0A%20%20%20%20-%20Dynamic%20visualizations%0A%20%20%20%20-%20Statistical%20summaries%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0Aif%20__name__%20%3D%3D%20%22__main__%22%3A%0A%20%20%20%20app.run()%0A</marimo-code></head>
+  <body>
+    <div id="root"></div>
+    <!-- This is a portal for the data editor to render in -->
+    <div id="portal" data-testid="glide-portal" style="position: fixed; left: 0; top: 0; z-index: 9999"></div>
+    <script data-marimo="true">
+      window.__MARIMO_MOUNT_CONFIG__ = {
+            "filename": "notebook.py",
+            "mode": "read",
+            "version": "0.16.2",
+            "serverToken": "unused",
+            "config": {"ai": {"models": {"custom_models": [], "displayed_models": []}}, "completion": {"activate_on_typing": true, "copilot": false}, "display": {"cell_output": "below", "code_editor_font_size": 14, "custom_css": [], "dataframes": "rich", "default_table_max_columns": 50, "default_table_page_size": 10, "default_width": "columns", "reference_highlighting": true, "theme": "light"}, "formatting": {"line_length": 79}, "keymap": {"overrides": {}, "preset": "default"}, "language_servers": {"pylsp": {"enable_flake8": false, "enable_mypy": true, "enable_pydocstyle": false, "enable_pyflakes": false, "enable_pylint": false, "enable_ruff": true, "enabled": true}}, "package_management": {"manager": "uv"}, "runtime": {"auto_instantiate": true, "auto_reload": "off", "default_sql_output": "auto", "on_cell_change": "autorun", "output_max_bytes": 8000000, "reactive_tests": true, "std_stream_max_bytes": 1000000, "watcher_on_save": "lazy"}, "save": {"autosave": "off", "autosave_delay": 1000, "format_on_save": false}, "server": {"browser": "default", "follow_symlink": false}, "snippets": {"custom_paths": [], "include_default_snippets": true}},
+            "configOverrides": {},
+            "appConfig": {"sql_output": "auto", "width": "compact"},
+            "view": {"showAppCode": false},
+            "notebook": null,
+            "session": null,
+            "runtimeConfig": null,
+        };
+    </script>
+  </body>
+</html>

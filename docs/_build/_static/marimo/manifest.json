@@ -1,0 +1,15 @@
+{
+  "notebooks": [
+    {
+      "name": "example",
+      "path": "example.py",
+      "output": "notebooks/example.html"
+    },
+    {
+      "name": "data_analysis",
+      "path": "data_analysis.py",
+      "output": "notebooks/data_analysis.html"
+    }
+  ],
+  "version": "0.1.0"
+}
