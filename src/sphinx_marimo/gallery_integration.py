@@ -108,7 +108,7 @@ class GalleryMarimoIntegration:
 
             # Step 2: Export Marimo notebook to WASM HTML
             result = subprocess.run([
-                'marimo', 'export', 'html-wasm', str(marimo_py_file),
+                'marimo', 'export', 'html-wasm', '--mode', 'edit', str(marimo_py_file),
                 '-o', str(marimo_html_file)
             ], capture_output=True, text=True, check=True)
 

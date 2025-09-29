@@ -14,8 +14,14 @@
 
     // Main launcher functionality
     window.MarimoGalleryLauncher = {
+        initialized: false,
 
         inject: function() {
+            // Prevent multiple injections
+            if (this.initialized) {
+                return;
+            }
+            this.initialized = true;
             // Look for Sphinx Gallery download containers - target the footer container
             const galleryFooters = document.querySelectorAll('.sphx-glr-footer.sphx-glr-footer-example');
 
@@ -123,8 +129,8 @@
                 return;
             }
 
-            // Check if button already exists
-            if (sidebar.querySelector('.marimo-sidebar-button')) {
+            // Check if button already exists - check for any marimo link/button
+            if (sidebar.querySelector('.marimo-sidebar-button') || sidebar.querySelector('a[href*="marimo"]')) {
                 return;
             }
 
@@ -163,14 +169,20 @@
                 thisPageSection.appendChild(noteDiv);
             }
 
-            // Create the Marimo button list item
+            // Create the Marimo button list item with shields.io badge
             const li = document.createElement('li');
             const a = document.createElement('a');
             a.href = this.getMarimoNotebookUrl(notebookName);
             a.target = '_blank';
             a.rel = 'noopener noreferrer';
-            a.textContent = 'Launch Marimo';
-            a.className = 'marimo-sidebar-button';
+
+            // Use shields.io badge image instead of text button
+            const img = document.createElement('img');
+            img.src = 'https://img.shields.io/badge/launch-marimo-green';
+            img.alt = 'Launch Marimo';
+            img.style.cssText = 'vertical-align: middle;';
+
+            a.appendChild(img);
 
             // Add click tracking
             a.addEventListener('click', () => {
