@@ -70,7 +70,7 @@
 
             const span1 = document.createElement('span');
             span1.className = 'pre';
-            span1.textContent = 'Launch';
+            span1.textContent = 'Download';
 
             const span2 = document.createElement('span');
             span2.className = 'pre';

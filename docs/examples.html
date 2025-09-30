@@ -48,7 +48,7 @@
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/marimo/marimo-loader.js?v=ddd8502f"></script>
-    <script src="_static/marimo/gallery-launcher.js?v=a7a6d1f3"></script>
+    <script src="_static/marimo/gallery-launcher.js?v=902e816a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'examples';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -375,27 +375,32 @@
     })();
 </script>
 </section>
-<section id="custom-styling">
-<h2>Custom Styling<a class="headerlink" href="#custom-styling" title="Link to this heading">#</a></h2>
-<p>You can customize the appearance of embedded notebooks:</p>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h2>
+<p>To use sphinx-marimo in your documentation, add it to your <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;sphinx_gallery.gen_gallery&#39;</span><span class="p">,</span>  <span class="c1"># Must come before sphinx_marimo</span>
+    <span class="s1">&#39;sphinx_marimo&#39;</span><span class="p">,</span>
+<span class="p">]</span>
 
-<div class="custom-notebook" id="marimo-example-2" data-notebook="example" data-theme="light">
-    <iframe
-        src="_static/marimo/notebooks/example.html"
-        style="width: 80%; height: 500px; border: 1px solid #e0e0e0; border-radius: 4px;"
-        frameborder="0"
-        loading="lazy"
-        allow="fullscreen">
-    </iframe>
+<span class="c1"># Marimo configuration</span>
+<span class="n">marimo_notebook_dir</span> <span class="o">=</span> <span class="s1">&#39;../notebooks&#39;</span>      <span class="c1"># Where your notebooks are located</span>
+<span class="n">marimo_build_dir</span> <span class="o">=</span> <span class="s1">&#39;_build/marimo&#39;</span>        <span class="c1"># Temporary build directory</span>
+<span class="n">marimo_output_dir</span> <span class="o">=</span> <span class="s1">&#39;_static/marimo&#39;</span>      <span class="c1"># Output directory for built notebooks</span>
+<span class="n">marimo_default_height</span> <span class="o">=</span> <span class="s1">&#39;600px&#39;</span>           <span class="c1"># Default iframe height</span>
+<span class="n">marimo_default_width</span> <span class="o">=</span> <span class="s1">&#39;100%&#39;</span>             <span class="c1"># Default iframe width</span>
+
+<span class="c1"># Sphinx Gallery integration</span>
+<span class="n">sphinx_gallery_conf</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;examples_dirs&#39;</span><span class="p">:</span> <span class="s1">&#39;../gallery_examples&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gallery_dirs&#39;</span><span class="p">:</span> <span class="s1">&#39;auto_examples&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;filename_pattern&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;/plot_.*\.py$&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Marimo Gallery integration</span>
+<span class="n">marimo_gallery_button_text</span> <span class="o">=</span> <span class="s1">&#39;launch marimo&#39;</span>  <span class="c1"># Button text in gallery examples</span>
+</pre></div>
 </div>
-<script>
-    (function() {
-        const container = document.getElementById('marimo-example-2');
-        if (window.MarimoLoader) {
-            window.MarimoLoader.load(container, 'example');
-        }
-    })();
-</script>
 </section>
 <section id="directive-options">
 <h2>Directive Options<a class="headerlink" href="#directive-options" title="Link to this heading">#</a></h2>
@@ -403,15 +408,11 @@
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">height</span></code>: Set the iframe height (default: 600px)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">width</span></code>: Set the iframe width (default: 100%)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">class</span></code>: Add custom CSS classes</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">theme</span></code>: Set the theme (light/dark/auto)</p></li>
 </ul>
-<p>Example with all options:</p>
+<p>Example:</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">marimo</span><span class="p">::</span> notebook.py
    <span class="nc">:height:</span> 800px
    <span class="nc">:width:</span> 90%
-   <span class="nc">:class:</span> my-custom-class
-   <span class="nc">:theme:</span> dark
 </pre></div>
 </div>
 </section>
@@ -493,7 +494,7 @@ sphinx-build<span class="w"> </span>-b<span class="w"> </span>html<span class="w
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-example">Basic Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-analysis-example">Data Analysis Example</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-styling">Custom Styling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directive-options">Directive Options</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tips-for-creating-notebooks">Tips for Creating Notebooks</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-documentation">Building Documentation</a></li>
