@@ -25,14 +25,22 @@ class MarimoDirective(SphinxDirective):
 
         container_id = f"marimo-{notebook_name}-{self.env.new_serialno('marimo')}"
 
-        # Construct relative path - just use _static without leading slash
-        # This works for GitHub Pages subdirectories
-        static_path = f'_static/marimo/notebooks/{notebook_name}.html'
+        # Calculate relative path from current document to _static directory
+        # For documents at different depths, we need different numbers of ../
+        # Use ./ prefix to prevent Sphinx from converting to absolute path
+        doc_depth = self.env.docname.count('/')
+        if doc_depth > 0:
+            prefix = '../' * doc_depth
+        else:
+            prefix = './'
+        static_path = prefix + '_static/marimo/notebooks/' + notebook_name + '.html'
 
+        # Use data attribute to store path and let JavaScript handle it
+        # This avoids Sphinx's post-processing of src attributes
         html = f"""
-<div class="{css_class}" id="{container_id}" data-notebook="{notebook_name}" data-theme="{theme}">
+<div class="{css_class}" id="{container_id}" data-notebook="{notebook_name}" data-theme="{theme}" data-notebook-path="{static_path}">
     <iframe
-        src="{static_path}"
+        data-src="{static_path}"
         style="width: {width}; height: {height}; border: 1px solid #e0e0e0; border-radius: 4px;"
         frameborder="0"
         loading="lazy"
@@ -42,6 +50,10 @@ class MarimoDirective(SphinxDirective):
 <script>
     (function() {{
         const container = document.getElementById('{container_id}');
+        const iframe = container.querySelector('iframe');
+        const src = iframe.getAttribute('data-src');
+        iframe.setAttribute('src', src);
+
         if (window.MarimoLoader) {{
             window.MarimoLoader.load(container, '{notebook_name}');
         }}

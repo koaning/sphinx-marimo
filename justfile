@@ -18,3 +18,7 @@ serve:
 
 # Full rebuild
 rebuild: clean build-docs
+
+pypi:
+    uv build
+    uv publish

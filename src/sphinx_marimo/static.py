@@ -352,12 +352,11 @@ def create_gallery_launcher_js(static_dir: Path) -> None:
 
             const paragraph = document.createElement('p');
 
-            // Create Marimo launcher button with Gallery's download link styling
+            // Create Marimo download button with Gallery's download link styling
             const button = document.createElement('a');
-            button.className = 'reference external';
-            button.href = this.getMarimoNotebookUrl(notebookName);
-            button.target = '_blank';
-            button.rel = 'noopener noreferrer';
+            button.className = 'reference download internal';
+            button.href = this.getMarimoDownloadUrl(notebookName);
+            button.download = `${notebookName}.py`;
 
             const code = document.createElement('code');
             code.className = 'xref download docutils literal notranslate';
@@ -388,7 +387,7 @@ def create_gallery_launcher_js(static_dir: Path) -> None:
 
             const span7 = document.createElement('span');
             span7.className = 'pre';
-            span7.textContent = `${notebookName}.html`;
+            span7.textContent = `${notebookName}.py`;
 
             code.appendChild(span1);
             code.appendChild(span2);
@@ -530,7 +529,7 @@ def create_gallery_launcher_js(static_dir: Path) -> None:
         },
 
         getMarimoNotebookUrl: function(notebookName) {
-            // Build URL to Marimo WASM notebook
+            // Build URL to Marimo WASM notebook (for launching in browser)
             // For Gallery pages, we need to go up one level to get to the root
             const currentPath = window.location.pathname;
             let baseUrl = window.location.origin;
@@ -544,6 +543,23 @@ def create_gallery_launcher_js(static_dir: Path) -> None:
             }
 
             return baseUrl + `_static/marimo/gallery/${notebookName}.html`;
+        },
+
+        getMarimoDownloadUrl: function(notebookName) {
+            // Build URL to Marimo Python file (for downloading)
+            // For Gallery pages, we need to go up one level to get to the root
+            const currentPath = window.location.pathname;
+            let baseUrl = window.location.origin;
+
+            if (currentPath.includes('/auto_examples/')) {
+                // We're in a gallery page, need to go up one level
+                baseUrl += currentPath.replace(/\/auto_examples\/.*$/, '/');
+            } else {
+                // Regular page, use current directory
+                baseUrl += currentPath.replace(/[^/]*$/, '');
+            }
+
+            return baseUrl + `_static/marimo/gallery/${notebookName}.py`;
         },
 
         getButtonText: function() {
