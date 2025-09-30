@@ -20,16 +20,34 @@ A more complex notebook showing data analysis capabilities:
    :height: 800px
    :width: 100%
 
-Custom Styling
---------------
+Configuration
+-------------
 
-You can customize the appearance of embedded notebooks:
+To use sphinx-marimo in your documentation, add it to your ``conf.py``:
 
-.. marimo:: example.py
-   :height: 500px
-   :width: 80%
-   :class: custom-notebook
-   :theme: light
+.. code-block:: python
+
+   extensions = [
+       'sphinx_gallery.gen_gallery',  # Must come before sphinx_marimo
+       'sphinx_marimo',
+   ]
+
+   # Marimo configuration
+   marimo_notebook_dir = '../notebooks'      # Where your notebooks are located
+   marimo_build_dir = '_build/marimo'        # Temporary build directory
+   marimo_output_dir = '_static/marimo'      # Output directory for built notebooks
+   marimo_default_height = '600px'           # Default iframe height
+   marimo_default_width = '100%'             # Default iframe width
+
+   # Sphinx Gallery integration
+   sphinx_gallery_conf = {
+       'examples_dirs': '../gallery_examples',
+       'gallery_dirs': 'auto_examples',
+       'filename_pattern': r'/plot_.*\.py$',
+   }
+
+   # Marimo Gallery integration
+   marimo_gallery_button_text = 'launch marimo'  # Button text in gallery examples
 
 Directive Options
 -----------------
@@ -38,18 +56,14 @@ The ``marimo`` directive supports several options:
 
 * ``height``: Set the iframe height (default: 600px)
 * ``width``: Set the iframe width (default: 100%)
-* ``class``: Add custom CSS classes
-* ``theme``: Set the theme (light/dark/auto)
 
-Example with all options:
+Example:
 
 .. code-block:: rst
 
    .. marimo:: notebook.py
       :height: 800px
       :width: 90%
-      :class: my-custom-class
-      :theme: dark
 
 Tips for Creating Notebooks
 ----------------------------
