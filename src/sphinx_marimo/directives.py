@@ -25,10 +25,14 @@ class MarimoDirective(SphinxDirective):
 
         container_id = f"marimo-{notebook_name}-{self.env.new_serialno('marimo')}"
 
+        # Construct relative path - just use _static without leading slash
+        # This works for GitHub Pages subdirectories
+        static_path = f'_static/marimo/notebooks/{notebook_name}.html'
+
         html = f"""
 <div class="{css_class}" id="{container_id}" data-notebook="{notebook_name}" data-theme="{theme}">
     <iframe
-        src="/_static/marimo/notebooks/{notebook_name}.html"
+        src="{static_path}"
         style="width: {width}; height: {height}; border: 1px solid #e0e0e0; border-radius: 4px;"
         frameborder="0"
         loading="lazy"
