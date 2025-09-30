@@ -48,7 +48,7 @@
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/marimo/marimo-loader.js?v=ddd8502f"></script>
-    <script src="_static/marimo/gallery-launcher.js?v=9030200d"></script>
+    <script src="_static/marimo/gallery-launcher.js?v=ad694cea"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'examples';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -335,9 +335,9 @@
 <h2>Basic Example<a class="headerlink" href="#basic-example" title="Link to this heading">#</a></h2>
 <p>A simple interactive notebook with UI components:</p>
 
-<div class="marimo-embed" id="marimo-example-0" data-notebook="example" data-theme="light">
+<div class="marimo-embed" id="marimo-example-0" data-notebook="example" data-theme="light" data-notebook-path="./_static/marimo/notebooks/example.html">
     <iframe
-        src="_static/marimo/notebooks/example.html"
+        data-src="./_static/marimo/notebooks/example.html"
         style="width: 100%; height: 700px; border: 1px solid #e0e0e0; border-radius: 4px;"
         frameborder="0"
         loading="lazy"
@@ -347,6 +347,10 @@
 <script>
     (function() {
         const container = document.getElementById('marimo-example-0');
+        const iframe = container.querySelector('iframe');
+        const src = iframe.getAttribute('data-src');
+        iframe.setAttribute('src', src);
+
         if (window.MarimoLoader) {
             window.MarimoLoader.load(container, 'example');
         }
@@ -357,9 +361,9 @@
 <h2>Data Analysis Example<a class="headerlink" href="#data-analysis-example" title="Link to this heading">#</a></h2>
 <p>A more complex notebook showing data analysis capabilities:</p>
 
-<div class="marimo-embed" id="marimo-data_analysis-1" data-notebook="data_analysis" data-theme="light">
+<div class="marimo-embed" id="marimo-data_analysis-1" data-notebook="data_analysis" data-theme="light" data-notebook-path="./_static/marimo/notebooks/data_analysis.html">
     <iframe
-        src="_static/marimo/notebooks/data_analysis.html"
+        data-src="./_static/marimo/notebooks/data_analysis.html"
         style="width: 100%; height: 800px; border: 1px solid #e0e0e0; border-radius: 4px;"
         frameborder="0"
         loading="lazy"
@@ -369,6 +373,10 @@
 <script>
     (function() {
         const container = document.getElementById('marimo-data_analysis-1');
+        const iframe = container.querySelector('iframe');
+        const src = iframe.getAttribute('data-src');
+        iframe.setAttribute('src', src);
+
         if (window.MarimoLoader) {
             window.MarimoLoader.load(container, 'data_analysis');
         }
