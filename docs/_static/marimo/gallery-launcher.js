@@ -130,7 +130,7 @@
             }
 
             // Check if button already exists - check for any marimo link/button
-            if (sidebar.querySelector('.marimo-sidebar-button') || sidebar.querySelector('a[href*="marimo"]')) {
+            if (sidebar.querySelector('a[href*="marimo/gallery"]')) {
                 return;
             }
 
@@ -140,57 +140,43 @@
                 return;
             }
 
-            // Find the "This Page" section or create one
-            let thisPageSection = sidebar.querySelector('.sidebar-secondary-item');
-            if (!thisPageSection) {
-                // Create the section if it doesn't exist
-                thisPageSection = document.createElement('div');
-                thisPageSection.className = 'sidebar-secondary-item';
-                sidebar.appendChild(thisPageSection);
-            }
-
-            // Look for existing "This Page" menu or create one
-            let thisPageMenu = thisPageSection.querySelector('.this-page-menu');
+            // Look for existing "This Page" menu (where "Show Source" is)
+            let thisPageMenu = sidebar.querySelector('.this-page-menu');
             if (!thisPageMenu) {
-                // Create the full structure
-                const noteDiv = document.createElement('div');
-                noteDiv.setAttribute('role', 'note');
-                noteDiv.setAttribute('aria-label', 'marimo link');
-
-                const h3 = document.createElement('h3');
-                h3.textContent = 'Launch Interactive';
-
-                const ul = document.createElement('ul');
-                ul.className = 'this-page-menu';
-                thisPageMenu = ul;
-
-                noteDiv.appendChild(h3);
-                noteDiv.appendChild(ul);
-                thisPageSection.appendChild(noteDiv);
+                return; // If there's no "This Page" menu, don't create one
             }
 
-            // Create the Marimo button list item with shields.io badge
-            const li = document.createElement('li');
+            // Find the parent div that contains the "This Page" section
+            let thisPageDiv = thisPageMenu.closest('div[role="note"]');
+            if (!thisPageDiv) {
+                return;
+            }
+
+            // Create a container div for the Marimo badge (not a list item)
+            const badgeContainer = document.createElement('div');
+            badgeContainer.style.cssText = 'margin-top: 10px;';
+
             const a = document.createElement('a');
             a.href = this.getMarimoNotebookUrl(notebookName);
             a.target = '_blank';
             a.rel = 'noopener noreferrer';
 
-            // Use shields.io badge image instead of text button
+            // Use shields.io badge image
             const img = document.createElement('img');
             img.src = 'https://img.shields.io/badge/launch-marimo-green';
             img.alt = 'Launch Marimo';
             img.style.cssText = 'vertical-align: middle;';
 
             a.appendChild(img);
+            badgeContainer.appendChild(a);
 
             // Add click tracking
             a.addEventListener('click', () => {
                 this.trackLaunch(notebookName);
             });
 
-            li.appendChild(a);
-            thisPageMenu.appendChild(li);
+            // Append after the "This Page" list, not inside it
+            thisPageDiv.appendChild(badgeContainer);
         },
 
         addMarimoButtonGeneric: function() {
