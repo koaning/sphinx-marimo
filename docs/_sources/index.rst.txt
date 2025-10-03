@@ -69,6 +69,10 @@ Add the extension to your ``conf.py``:
    marimo_default_height = '600px'
    marimo_default_width = '100%'
 
+   # Gallery integration button visibility (both default to True)
+   marimo_show_footer_button = True   # Show download button in page footer
+   marimo_show_sidebar_button = True  # Show launch button in right sidebar
+
 Usage
 -----
 

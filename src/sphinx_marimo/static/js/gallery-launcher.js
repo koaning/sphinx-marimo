@@ -141,7 +141,51 @@
                 return;
             }
 
-            // Look for existing "This Page" menu (where "Show Source" is)
+            // Check if there are existing sidebar-secondary-item elements (sphinx-gallery badges)
+            const sidebarItems = sidebar.querySelectorAll('.sidebar-secondary-item');
+
+            if (sidebarItems.length > 0) {
+                // Get the last sidebar item
+                const lastItem = sidebarItems[sidebarItems.length - 1];
+
+                // Create a new sidebar-secondary-item to match the structure
+                const marimoItem = document.createElement('div');
+                marimoItem.className = 'sidebar-secondary-item';
+
+                // Create the sphx-glr-sidebar-component container
+                const componentDiv = document.createElement('div');
+                componentDiv.className = 'sphx-glr-sidebar-component';
+
+                // Create the sphx-glr-sidebar-item with marimo badge
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'sphx-glr-sidebar-item marimo-badge-sidebar';
+
+                const a = document.createElement('a');
+                a.href = this.getMarimoNotebookUrl(notebookName);
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+
+                // Use shields.io badge image
+                const img = document.createElement('img');
+                img.src = 'https://img.shields.io/badge/launch-marimo-green';
+                img.alt = 'Launch Marimo';
+
+                a.appendChild(img);
+                itemDiv.appendChild(a);
+                componentDiv.appendChild(itemDiv);
+                marimoItem.appendChild(componentDiv);
+
+                // Add click tracking
+                a.addEventListener('click', () => {
+                    this.trackLaunch(notebookName);
+                });
+
+                // Insert after the last sidebar-secondary-item
+                lastItem.parentNode.insertBefore(marimoItem, lastItem.nextSibling);
+                return;
+            }
+
+            // Fallback: Look for existing "This Page" menu (where "Show Source" is)
             let thisPageMenu = sidebar.querySelector('.this-page-menu');
             if (!thisPageMenu) {
                 return; // If there's no "This Page" menu, don't create one

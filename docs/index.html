@@ -10,7 +10,7 @@
 
     <script>
         var marimo_show_footer_button = true;
-        var marimo_show_sidebar_button = false;
+        var marimo_show_sidebar_button = true;
     </script>
     
     <title>Welcome to Sphinx-Marimo Documentation &#8212; Sphinx-Marimo 0.1.0 documentation</title>
@@ -36,6 +36,8 @@
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyterlite_sphinx.css?v=8ee2c72c" />
     <link rel="stylesheet" type="text/css" href="_static/marimo/marimo-embed.css?v=d2b2e6da" />
     <link rel="stylesheet" type="text/css" href="_static/marimo/gallery-launcher.css?v=dea9504a" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -52,8 +54,9 @@
     <script src="_static/documentation_options.js?v=01f34227"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/jupyterlite_sphinx.js?v=96e329c5"></script>
     <script src="_static/marimo/marimo-loader.js?v=5ab75c7a"></script>
-    <script src="_static/marimo/gallery-launcher.js?v=1b1468d0"></script>
+    <script src="_static/marimo/gallery-launcher.js?v=e0adf191"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -122,7 +125,7 @@
   
   
   
-    <p class="title logo__title">Sphinx-Marimo 0.1.0 documentation</p>
+    <p class="title logo__title">🖼️ Sphinx-Gallery</p>
   
 </a></div>
     
@@ -182,6 +185,34 @@
   <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
   <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
 </button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/sphinx-gallery/sphinx-gallery" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/sphinx-gallery" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
       
     </div>
     
@@ -268,6 +299,34 @@
   <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
   <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
 </button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/sphinx-gallery/sphinx-gallery" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/sphinx-gallery" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
         
       </div>
     
@@ -398,6 +457,10 @@ requiring a server.</p>
 <span class="n">marimo_notebook_dir</span> <span class="o">=</span> <span class="s1">&#39;notebooks&#39;</span>  <span class="c1"># Directory containing .py Marimo notebooks</span>
 <span class="n">marimo_default_height</span> <span class="o">=</span> <span class="s1">&#39;600px&#39;</span>
 <span class="n">marimo_default_width</span> <span class="o">=</span> <span class="s1">&#39;100%&#39;</span>
+
+<span class="c1"># Gallery integration button visibility (both default to True)</span>
+<span class="n">marimo_show_footer_button</span> <span class="o">=</span> <span class="kc">True</span>   <span class="c1"># Show download button in page footer</span>
+<span class="n">marimo_show_sidebar_button</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Show launch button in right sidebar</span>
 </pre></div>
 </div>
 </section>
@@ -472,15 +535,6 @@ requiring a server.</p>
 </ul>
 
   </nav></div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/index.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
 
 </div></div>
               

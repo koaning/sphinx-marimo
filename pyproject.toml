@@ -34,3 +34,8 @@ packages = ["src/sphinx_marimo"]
 
 [tool.hatch.build.targets.wheel.shared-data]
 "src/sphinx_marimo/static" = "sphinx_marimo/static"
+
+[dependency-groups]
+dev = [
+    "jupyterlite-sphinx>=0.22.0",
+]

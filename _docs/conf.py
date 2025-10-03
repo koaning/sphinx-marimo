@@ -2,6 +2,7 @@
 
 import os
 import sys
+import sphinx_gallery
 sys.path.insert(0, os.path.abspath('../src'))
 
 # -- Project information -----------------------------------------------------
@@ -13,6 +14,7 @@ release = '0.1.0'
 # -- General configuration ---------------------------------------------------
 extensions = [
     'sphinx_gallery.gen_gallery',  # Must come before sphinx_marimo for proper integration
+    'jupyterlite_sphinx',
     'sphinx_marimo',
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
@@ -39,6 +41,32 @@ sphinx_gallery_conf = {
     'filename_pattern': r'/plot_.*\.py$',      # Only process files starting with plot_
     'expected_failing_examples': set(),
     'plot_gallery': 'True',
+    'jupyterlite': {
+        'use_jupyter_lab': False
+    }
+}
+
+# -- JupyterLite configuration ----------------------------------------------
+jupyterlite_contents = ["./jupyterlite_contents/auto_examples"]
+
+html_theme_options = {
+    "navbar_center": ["navbar-nav"],
+    "show_toc_level": 2,
+    "logo": {
+        "text": "🖼️ Sphinx-Gallery",
+    },
+    "github_url": "https://github.com/sphinx-gallery/sphinx-gallery",
+    "icon_links": [
+        {
+            "name": "PyPI",
+            "url": "https://pypi.org/project/sphinx-gallery",
+            "icon": "fa-solid fa-box",
+        },
+    ],
+    "secondary_sidebar_items": ["page-toc", "sg_download_links", "sg_launcher_links"],
+    "jupyterlite": {
+        "notebook_modification_function": "sg_doc_build.notebook_modification_function",
+    },
 }
 
 # -- Marimo Gallery integration ---------------------------------------------

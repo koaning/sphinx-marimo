@@ -1,0 +1,57 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2025-10-03T14:55:06.894638Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2025-09-29T19:35:18.970311Z",
+      "mimetype": null,
+      "name": "plot_basic_visualization.ipynb",
+      "path": "auto_examples/plot_basic_visualization.ipynb",
+      "size": 1926,
+      "type": "notebook",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2025-10-03T14:55:06.895729Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2025-09-29T19:35:18.971982Z",
+      "mimetype": null,
+      "name": "plot_machine_learning_demo.ipynb",
+      "path": "auto_examples/plot_machine_learning_demo.ipynb",
+      "size": 4071,
+      "type": "notebook",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2025-10-03T14:55:06.895195Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2025-09-29T19:35:18.970984Z",
+      "mimetype": null,
+      "name": "plot_interactive_dashboard.ipynb",
+      "path": "auto_examples/plot_interactive_dashboard.ipynb",
+      "size": 2940,
+      "type": "notebook",
+      "writable": true
+    }
+  ],
+  "created": "2025-10-03T14:55:06.895608Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2025-10-03T14:55:06.895608Z",
+  "mimetype": null,
+  "name": "auto_examples",
+  "path": "auto_examples",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

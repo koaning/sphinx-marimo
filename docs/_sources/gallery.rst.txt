@@ -32,6 +32,19 @@ Key Features
    The Marimo launcher integration requires no changes to existing Gallery examples -
    it works automatically with any Gallery-compatible Python script.
 
+Configuration
+~~~~~~~~~~~~~
+
+You can control which buttons appear on Gallery pages using these configuration options in ``conf.py``:
+
+.. code-block:: python
+
+   # Control button visibility (both default to True)
+   marimo_show_footer_button = True   # Show download button in page footer
+   marimo_show_sidebar_button = True  # Show launch button in right sidebar
+
+This allows you to choose whether users see the download button, the launch button, or both.
+
 Auto-Generated Examples
 -----------------------
 
