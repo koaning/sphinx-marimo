@@ -43,3 +43,6 @@ sphinx_gallery_conf = {
 
 # -- Marimo Gallery integration ---------------------------------------------
 marimo_gallery_button_text = 'launch marimo'
+# Control which buttons to show on Gallery pages
+marimo_show_footer_button = True   # Show download button in page footer
+marimo_show_sidebar_button = True  # Show launch button in right sidebar

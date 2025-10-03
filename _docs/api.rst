@@ -62,6 +62,30 @@ The following configuration values can be set in ``conf.py``:
    :type: str
    :default: "100%"
 
+Gallery Integration Configuration
+----------------------------------
+
+.. py:data:: marimo_gallery_button_text
+
+   Text to display on the Marimo launcher button in Sphinx Gallery pages.
+
+   :type: str
+   :default: "launch marimo"
+
+.. py:data:: marimo_show_footer_button
+
+   Whether to show the Marimo download button in the footer of Gallery example pages.
+
+   :type: bool
+   :default: True
+
+.. py:data:: marimo_show_sidebar_button
+
+   Whether to show the Marimo launch button in the right sidebar of Gallery example pages.
+
+   :type: bool
+   :default: True
+
 Directive
 ---------
 

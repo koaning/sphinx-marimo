@@ -16,11 +16,15 @@
         footerButtonsAdded: false,
 
         inject: function() {
+            // Check configuration for button visibility
+            const showFooterButton = typeof marimo_show_footer_button !== 'undefined' ? marimo_show_footer_button : true;
+            const showSidebarButton = typeof marimo_show_sidebar_button !== 'undefined' ? marimo_show_sidebar_button : true;
+
             // Look for Sphinx Gallery download containers - target the footer container
             const galleryFooters = document.querySelectorAll('.sphx-glr-footer.sphx-glr-footer-example');
 
             // Add footer buttons (only once)
-            if (!this.footerButtonsAdded && galleryFooters.length > 0) {
+            if (showFooterButton && !this.footerButtonsAdded && galleryFooters.length > 0) {
                 galleryFooters.forEach(footer => {
                     this.addMarimoButton(footer);
                 });
@@ -28,7 +32,7 @@
             }
 
             // Add sidebar button for Gallery pages (always try, has its own duplicate check)
-            if (galleryFooters.length > 0) {
+            if (showSidebarButton && galleryFooters.length > 0) {
                 this.addMarimoSidebarButton();
             }
 

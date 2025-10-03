@@ -26,6 +26,12 @@ def config_inited(app: Sphinx, config: Config) -> None:
     if not hasattr(config, "marimo_gallery_button_text"):
         config.marimo_gallery_button_text = "launch marimo"
 
+    if not hasattr(config, "marimo_show_footer_button"):
+        config.marimo_show_footer_button = True
+
+    if not hasattr(config, "marimo_show_sidebar_button"):
+        config.marimo_show_sidebar_button = True
+
 
 def build_marimo_notebooks(app: Sphinx) -> None:
     # Static files go directly in _static/marimo in the build output
@@ -65,6 +71,28 @@ def html_page_context(app: Sphinx, pagename: str, templatename: str, context: di
     if notebook_info:
         context['marimo_notebook_info'] = notebook_info
 
+    # Add button visibility configuration to all pages
+    # Create JavaScript config object
+    marimo_config = {
+        'show_footer_button': app.config.marimo_show_footer_button,
+        'show_sidebar_button': app.config.marimo_show_sidebar_button,
+    }
+
+    # Add config script to body
+    config_script = f"""
+    <script>
+        var marimo_show_footer_button = {str(marimo_config['show_footer_button']).lower()};
+        var marimo_show_sidebar_button = {str(marimo_config['show_sidebar_button']).lower()};
+    </script>
+    """
+
+    if 'body' not in context:
+        context['body'] = ''
+
+    # Prepend config to body (will be added before other scripts)
+    context.setdefault('metatags', '')
+    context['metatags'] += config_script
+
 
 def setup(app: Sphinx) -> Dict[str, Any]:
     # Regular Marimo configuration
@@ -76,6 +104,8 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 
     # Gallery integration configuration
     app.add_config_value("marimo_gallery_button_text", "launch marimo", "html")
+    app.add_config_value("marimo_show_footer_button", True, "html")
+    app.add_config_value("marimo_show_sidebar_button", True, "html")
 
     app.add_directive("marimo", MarimoDirective)
 
