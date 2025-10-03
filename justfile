@@ -14,7 +14,7 @@ clean:
 
 # Development server (if you want to test locally)
 serve:
-    uv run python -m http.server 8000 --directory docs
+    uv run python -m http.server 1234 --directory docs
 
 # Run tests
 test:

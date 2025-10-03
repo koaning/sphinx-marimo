@@ -31,3 +31,6 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/sphinx_marimo"]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"src/sphinx_marimo/static" = "sphinx_marimo/static"
