@@ -292,7 +292,7 @@ def create_gallery_launcher_css(static_dir: Path) -> None:
 
 def create_gallery_launcher_js(static_dir: Path) -> None:
     """Create JavaScript for Sphinx Gallery Marimo launcher injection."""
-    js_content = """
+    js_content = r"""
 // Marimo Gallery launcher for Sphinx documentation
 (function() {
     'use strict';
