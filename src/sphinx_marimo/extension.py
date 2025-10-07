@@ -23,9 +23,6 @@ def config_inited(app: Sphinx, config: Config) -> None:
         config.marimo_output_dir = "_static/marimo"
 
     # Gallery integration defaults
-    if not hasattr(config, "marimo_gallery_button_text"):
-        config.marimo_gallery_button_text = "launch marimo"
-
     if not hasattr(config, "marimo_show_footer_button"):
         config.marimo_show_footer_button = True
 
@@ -103,10 +100,8 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.add_config_value("marimo_default_width", "100%", "html")
 
     # Gallery integration configuration
-    app.add_config_value("marimo_gallery_button_text", "launch marimo", "html")
     app.add_config_value("marimo_show_footer_button", True, "html")
     app.add_config_value("marimo_show_sidebar_button", True, "html")
-
     app.add_directive("marimo", MarimoDirective)
 
     # Event hooks

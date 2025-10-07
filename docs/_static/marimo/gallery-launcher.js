@@ -2,6 +2,13 @@
 (function() {
     'use strict';
 
+    // Button text constants
+    const MARIMO_BUTTON_LEFT = '🌱 launch';
+    const MARIMO_BUTTON_RIGHT = 'marimo';
+    const MARIMO_BUTTON_TEXT = MARIMO_BUTTON_LEFT + ' ' + MARIMO_BUTTON_RIGHT;
+    const MARIMO_BADGE_URL = `https://img.shields.io/badge/${MARIMO_BUTTON_LEFT}-${MARIMO_BUTTON_RIGHT}-3a9e3e`;
+    console.log(MARIMO_BADGE_URL)
+
     // Wait for DOM to be ready
     function ready(fn) {
         if (document.readyState !== 'loading') {
@@ -167,7 +174,7 @@
 
                 // Use shields.io badge image
                 const img = document.createElement('img');
-                img.src = 'https://img.shields.io/badge/launch-marimo-green';
+                img.src = MARIMO_BADGE_URL;
                 img.alt = 'Launch Marimo';
 
                 a.appendChild(img);
@@ -208,7 +215,7 @@
 
             // Use shields.io badge image
             const img = document.createElement('img');
-            img.src = 'https://img.shields.io/badge/launch-marimo-green';
+            img.src = MARIMO_BADGE_URL;
             img.alt = 'Launch Marimo';
             img.style.cssText = 'vertical-align: middle;';
 
@@ -249,7 +256,7 @@
                 button.href = marimo_notebook_info.notebook_url;
                 button.target = '_blank';
                 button.rel = 'noopener noreferrer';
-                button.textContent = marimo_notebook_info.button_text || 'launch marimo';
+                button.textContent = MARIMO_BUTTON_TEXT;
 
                 buttonContainer.appendChild(button);
                 targetContainer.appendChild(buttonContainer);
@@ -312,13 +319,6 @@
             }
 
             return baseUrl + `_static/marimo/gallery/${notebookName}.py`;
-        },
-
-        getButtonText: function() {
-            if (typeof marimo_notebook_info !== 'undefined' && marimo_notebook_info.button_text) {
-                return marimo_notebook_info.button_text;
-            }
-            return 'launch marimo';
         },
 
         trackLaunch: function(notebookName) {

@@ -171,7 +171,6 @@ class GalleryMarimoIntegration:
                 return {
                     'notebook_name': notebook_name,
                     'notebook_url': f"/_static/{manifest['gallery_notebooks'][notebook_name]}",
-                    'button_text': getattr(self.app.config, 'marimo_gallery_button_text', 'launch marimo')
                 }
 
         except Exception as e:
