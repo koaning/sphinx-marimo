@@ -1,6 +1,6 @@
 [project]
 name = "sphinx-marimo"
-version = "0.1.0"
+version = "0.2.1"
 description = "Sphinx extension for embedding Marimo notebooks with WASM support"
 readme = "README.md"
 authors = [
@@ -34,6 +34,15 @@ packages = ["src/sphinx_marimo"]
 
 [tool.hatch.build.targets.wheel.shared-data]
 "src/sphinx_marimo/static" = "sphinx_marimo/static"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "docs/",
+    "_docs/",
+    "tests/",
+    "notebooks/",
+    "gallery_examples/",
+]
 
 [dependency-groups]
 dev = [

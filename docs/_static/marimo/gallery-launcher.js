@@ -6,8 +6,7 @@
     const MARIMO_BUTTON_LEFT = '🌱 launch';
     const MARIMO_BUTTON_RIGHT = 'marimo';
     const MARIMO_BUTTON_TEXT = MARIMO_BUTTON_LEFT + ' ' + MARIMO_BUTTON_RIGHT;
-    const MARIMO_BADGE_URL = `https://img.shields.io/badge/${MARIMO_BUTTON_LEFT}-${MARIMO_BUTTON_RIGHT}-3a9e3e`;
-    console.log(MARIMO_BADGE_URL)
+    const MARIMO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="114" height="20" role="img" aria-label="🌱 launch: marimo"><title>🌱 launch: marimo</title><linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="r"><rect width="114" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#r)"><rect width="61" height="20" fill="#555"/><rect x="61" width="53" height="20" fill="#3a9e3e"/><rect width="114" height="20" fill="url(#s)"/></g><g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110"><text aria-hidden="true" x="315" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="510">🌱 launch</text><text x="315" y="140" transform="scale(.1)" fill="#fff" textLength="510">🌱 launch</text><text aria-hidden="true" x="865" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="430">marimo</text><text x="865" y="140" transform="scale(.1)" fill="#fff" textLength="430">marimo</text></g></svg>`
 
     // Wait for DOM to be ready
     function ready(fn) {
@@ -172,12 +171,11 @@
                 a.target = '_blank';
                 a.rel = 'noopener noreferrer';
 
-                // Use shields.io badge image
-                const img = document.createElement('img');
-                img.src = MARIMO_BADGE_URL;
-                img.alt = 'Launch Marimo';
+                // Use inline SVG badge
+                const svgContainer = document.createElement('span');
+                svgContainer.innerHTML = MARIMO_SVG;
 
-                a.appendChild(img);
+                a.appendChild(svgContainer);
                 itemDiv.appendChild(a);
                 componentDiv.appendChild(itemDiv);
                 marimoItem.appendChild(componentDiv);
@@ -213,13 +211,12 @@
             a.target = '_blank';
             a.rel = 'noopener noreferrer';
 
-            // Use shields.io badge image
-            const img = document.createElement('img');
-            img.src = MARIMO_BADGE_URL;
-            img.alt = 'Launch Marimo';
-            img.style.cssText = 'vertical-align: middle;';
+            // Use inline SVG badge
+            const svgContainer = document.createElement('span');
+            svgContainer.innerHTML = MARIMO_SVG;
+            svgContainer.style.cssText = 'vertical-align: middle;';
 
-            a.appendChild(img);
+            a.appendChild(svgContainer);
             badgeContainer.appendChild(a);
 
             // Add click tracking

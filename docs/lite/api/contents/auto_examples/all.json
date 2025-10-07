@@ -2,7 +2,7 @@
   "content": [
     {
       "content": null,
-      "created": "2025-10-07T17:11:09.100997Z",
+      "created": "2025-10-07T20:25:20.779314Z",
       "format": null,
       "hash": null,
       "hash_algorithm": null,
@@ -16,7 +16,7 @@
     },
     {
       "content": null,
-      "created": "2025-10-07T17:11:09.102102Z",
+      "created": "2025-10-07T20:25:20.780655Z",
       "format": null,
       "hash": null,
       "hash_algorithm": null,
@@ -30,7 +30,7 @@
     },
     {
       "content": null,
-      "created": "2025-10-07T17:11:09.101578Z",
+      "created": "2025-10-07T20:25:20.779954Z",
       "format": null,
       "hash": null,
       "hash_algorithm": null,
@@ -43,11 +43,11 @@
       "writable": true
     }
   ],
-  "created": "2025-10-07T17:11:09.101981Z",
+  "created": "2025-10-07T20:25:20.780532Z",
   "format": "json",
   "hash": null,
   "hash_algorithm": null,
-  "last_modified": "2025-10-07T17:11:09.101981Z",
+  "last_modified": "2025-10-07T20:25:20.780532Z",
   "mimetype": null,
   "name": "auto_examples",
   "path": "auto_examples",

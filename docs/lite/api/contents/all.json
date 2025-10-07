@@ -2,7 +2,7 @@
   "content": [
     {
       "content": null,
-      "created": "2025-10-07T17:11:09.101312Z",
+      "created": "2025-10-07T20:25:20.779666Z",
       "format": null,
       "hash": null,
       "hash_algorithm": null,
@@ -16,11 +16,11 @@
     },
     {
       "content": null,
-      "created": "2025-10-07T17:11:09.101981Z",
+      "created": "2025-10-07T20:25:20.780532Z",
       "format": null,
       "hash": null,
       "hash_algorithm": null,
-      "last_modified": "2025-10-07T17:11:09.101981Z",
+      "last_modified": "2025-10-07T20:25:20.780532Z",
       "mimetype": null,
       "name": "auto_examples",
       "path": "auto_examples",
@@ -30,7 +30,7 @@
     },
     {
       "content": null,
-      "created": "2025-10-07T17:11:09.102321Z",
+      "created": "2025-10-07T20:25:20.780977Z",
       "format": null,
       "hash": null,
       "hash_algorithm": null,
@@ -44,7 +44,7 @@
     },
     {
       "content": null,
-      "created": "2025-10-07T17:11:09.101818Z",
+      "created": "2025-10-07T20:25:20.780380Z",
       "format": null,
       "hash": null,
       "hash_algorithm": null,
@@ -57,11 +57,11 @@
       "writable": true
     }
   ],
-  "created": "2025-10-07T17:11:09.102228Z",
+  "created": "2025-10-07T20:25:20.780829Z",
   "format": "json",
   "hash": null,
   "hash_algorithm": null,
-  "last_modified": "2025-10-07T17:11:09.102228Z",
+  "last_modified": "2025-10-07T20:25:20.780829Z",
   "mimetype": null,
   "name": "",
   "path": "",

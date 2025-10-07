@@ -72,7 +72,8 @@ class GalleryMarimoIntegration:
         ipynb_files = list(self.gallery_notebooks_dir.rglob("*.ipynb"))
         logger.info(f"Found {len(ipynb_files)} Gallery notebooks to convert")
 
-        for ipynb_file in ipynb_files:
+        for i, ipynb_file in enumerate(ipynb_files):
+            logger.info(f"Converting {i+1}/{len(ipynb_files)}: {ipynb_file.name}")
             try:
                 converted_path = self._convert_single_notebook(ipynb_file)
                 if converted_path:
