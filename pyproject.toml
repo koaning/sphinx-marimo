@@ -1,12 +1,12 @@
 [project]
 name = "sphinx-marimo"
-version = "0.2.1"
+version = "0.2.2"
 description = "Sphinx extension for embedding Marimo notebooks with WASM support"
 readme = "README.md"
 authors = [
     { name = "koaning", email = "vincentwarmerdam@gmail.com" }
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 dependencies = [
     "sphinx>=7.0.0",
     "marimo>=0.1.0",
