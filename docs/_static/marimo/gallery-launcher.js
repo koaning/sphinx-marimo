@@ -136,8 +136,8 @@
                 return;
             }
 
-            // Check if button already exists - specifically check for the badge image
-            if (sidebar.querySelector('img[alt="Launch Marimo"]')) {
+            // Check if button already exists - check for the marimo badge specifically
+            if (sidebar.querySelector('.marimo-badge-sidebar')) {
                 return;
             }
 
@@ -147,22 +147,13 @@
                 return;
             }
 
-            // Check if there are existing sidebar-secondary-item elements (sphinx-gallery badges)
-            const sidebarItems = sidebar.querySelectorAll('.sidebar-secondary-item');
+            // Check if jupyterlite/binder components exist
+            const componentContainers = sidebar.querySelectorAll('.sphx-glr-sidebar-component');
 
-            if (sidebarItems.length > 0) {
-                // Get the last sidebar item
-                const lastItem = sidebarItems[sidebarItems.length - 1];
+            if (componentContainers.length > 0) {
+                // Add marimo badge inside the LAST component (alongside jupyterlite/binder)
+                const lastComponent = componentContainers[componentContainers.length - 1];
 
-                // Create a new sidebar-secondary-item to match the structure
-                const marimoItem = document.createElement('div');
-                marimoItem.className = 'sidebar-secondary-item';
-
-                // Create the sphx-glr-sidebar-component container
-                const componentDiv = document.createElement('div');
-                componentDiv.className = 'sphx-glr-sidebar-component';
-
-                // Create the sphx-glr-sidebar-item with marimo badge
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'sphx-glr-sidebar-item marimo-badge-sidebar';
 
@@ -177,16 +168,14 @@
 
                 a.appendChild(svgContainer);
                 itemDiv.appendChild(a);
-                componentDiv.appendChild(itemDiv);
-                marimoItem.appendChild(componentDiv);
 
                 // Add click tracking
                 a.addEventListener('click', () => {
                     this.trackLaunch(notebookName);
                 });
 
-                // Insert after the last sidebar-secondary-item
-                lastItem.parentNode.insertBefore(marimoItem, lastItem.nextSibling);
+                // Append to the last component container
+                lastComponent.appendChild(itemDiv);
                 return;
             }
 
