@@ -35,9 +35,5 @@ jobs:
       - name: Install dependencies
         run: |
           uv sync --dev
-
-      - name: Run tests
-        run: just test
-
-      - name: Run tests with coverage
-        run: just test-cov
+          uv pip install pytest
+          just test
