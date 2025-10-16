@@ -21,10 +21,6 @@ serve:
 test:
     uv run pytest tests/ -v
 
-# Run tests with coverage
-test-cov:
-    uv run pytest tests/ -v --cov=src/sphinx_marimo --cov-report=term-missing
-
 # Full rebuild
 rebuild: clean build-docs
 
