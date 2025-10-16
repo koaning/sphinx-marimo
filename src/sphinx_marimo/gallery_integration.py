@@ -4,22 +4,123 @@ import subprocess
 from pathlib import Path
 from typing import Optional, Dict, Any
 import json
-import logging
 
+from joblib import Parallel, delayed, Memory
 from sphinx.application import Sphinx
 from sphinx.util import logging as sphinx_logging
 
 logger = sphinx_logging.getLogger(__name__)
 
 
+def _convert_notebook_standalone(
+    ipynb_file: Path,
+    marimo_gallery_dir: Path,
+    memory: Optional[Memory],
+) -> tuple[Path, Optional[Path]]:
+    """Standalone function for parallel notebook conversion."""
+    try:
+        # Create output paths
+        notebook_name = ipynb_file.stem
+        marimo_py_file = marimo_gallery_dir / f"{notebook_name}.py"
+        marimo_html_file = marimo_gallery_dir / f"{notebook_name}.html"
+
+        # Check cache if available
+        if memory:
+            ipynb_content = ipynb_file.read_text()
+            ipynb_mtime = ipynb_file.stat().st_mtime
+            cached_convert = memory.cache(_convert_notebook_impl)
+            converted_path = cached_convert(
+                ipynb_file, marimo_py_file, marimo_html_file, ipynb_content, ipynb_mtime
+            )
+        else:
+            converted_path = _convert_notebook_impl(
+                ipynb_file, marimo_py_file, marimo_html_file
+            )
+
+        if converted_path:
+            logger.info(f"Converted: {ipynb_file.name}")
+        return (ipynb_file, converted_path)
+    except Exception as e:
+        logger.error(f"Failed to convert {ipynb_file.name}: {e}")
+        return (ipynb_file, None)
+
+
+def _convert_notebook_impl(
+    ipynb_file: Path,
+    marimo_py_file: Path,
+    marimo_html_file: Path,
+) -> Optional[Path]:
+    """Actual implementation of notebook conversion (cacheable)."""
+    try:
+        # Step 1: Convert .ipynb to Marimo .py format
+        result = subprocess.run(
+            ["marimo", "convert", str(ipynb_file), "-o", str(marimo_py_file)],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+
+        logger.debug(f"Converted {ipynb_file.name} to Marimo format")
+
+        # Step 2: Export Marimo notebook to WASM HTML
+        result = subprocess.run(
+            [
+                "marimo",
+                "export",
+                "html-wasm",
+                "--mode",
+                "edit",
+                str(marimo_py_file),
+                "-o",
+                str(marimo_html_file),
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+
+        logger.debug(f"Exported {ipynb_file.stem} to WASM HTML")
+        return marimo_html_file
+
+    except subprocess.CalledProcessError as e:
+        logger.error(f"Marimo command failed for {ipynb_file.name}: {e.stderr}")
+        return None
+    except FileNotFoundError:
+        logger.error(
+            "marimo command not found - make sure marimo is installed and in PATH"
+        )
+        return None
+
+
 class GalleryMarimoIntegration:
     """Handles integration between Sphinx Gallery and Marimo notebooks."""
 
-    def __init__(self, app: Sphinx):
+    def __init__(
+        self,
+        app: Sphinx,
+        parallel_build: Optional[bool] = None,
+        n_jobs: Optional[int] = None,
+        cache_dir: Optional[Path] = None,
+    ):
         self.app = app
         self.gallery_detected = False
         self.gallery_notebooks_dir: Optional[Path] = None
         self.marimo_gallery_dir: Optional[Path] = None
+
+        # Use config values if not explicitly provided
+        self.parallel_build = (
+            parallel_build
+            if parallel_build is not None
+            else getattr(app.config, "marimo_parallel_build", True)
+        )
+        self.n_jobs = (
+            n_jobs if n_jobs is not None else getattr(app.config, "marimo_n_jobs", -1)
+        )
+
+        # Setup caching
+        self.memory: Optional[Memory] = None
+        if cache_dir:
+            self.memory = Memory(cache_dir, verbose=0)
 
     def detect_sphinx_gallery(self) -> bool:
         """Check if Sphinx Gallery is enabled in this project."""
@@ -72,56 +173,44 @@ class GalleryMarimoIntegration:
         ipynb_files = list(self.gallery_notebooks_dir.rglob("*.ipynb"))
         logger.info(f"Found {len(ipynb_files)} Gallery notebooks to convert")
 
-        for i, ipynb_file in enumerate(ipynb_files):
-            logger.info(f"Converting {i+1}/{len(ipynb_files)}: {ipynb_file.name}")
-            try:
-                converted_path = self._convert_single_notebook(ipynb_file)
+        if self.parallel_build and len(ipynb_files) > 0:
+            logger.info(f"Converting in parallel with {self.n_jobs} jobs")
+            # Use generator mode to get results as they complete
+            # Pass necessary parameters instead of self to avoid pickling issues
+            for ipynb_file, converted_path in Parallel(n_jobs=self.n_jobs, return_as="generator")(
+                delayed(_convert_notebook_standalone)(
+                    ipynb_file,
+                    self.marimo_gallery_dir,
+                    self.memory
+                )
+                for ipynb_file in ipynb_files
+            ):
                 if converted_path:
                     # Store relative path from static root for web access
                     rel_path = converted_path.relative_to(Path(self.app.outdir) / "_static")
                     converted_notebooks[ipynb_file.stem] = str(rel_path)
+        else:
+            # Sequential conversion
+            for i, ipynb_file in enumerate(ipynb_files):
+                logger.info(f"Converting {i+1}/{len(ipynb_files)}: {ipynb_file.name}")
+                try:
+                    _, converted_path = _convert_notebook_standalone(
+                        ipynb_file, self.marimo_gallery_dir, self.memory
+                    )
+                    if converted_path:
+                        # Store relative path from static root for web access
+                        rel_path = converted_path.relative_to(Path(self.app.outdir) / "_static")
+                        converted_notebooks[ipynb_file.stem] = str(rel_path)
 
-            except Exception as e:
-                logger.error(f"Failed to convert {ipynb_file.name}: {e}")
-                continue
+                except Exception as e:
+                    logger.error(f"Failed to convert {ipynb_file.name}: {e}")
+                    continue
 
         # Save manifest of converted notebooks
         self._save_gallery_manifest(converted_notebooks)
 
         logger.info(f"Successfully converted {len(converted_notebooks)} Gallery notebooks to Marimo")
         return converted_notebooks
-
-    def _convert_single_notebook(self, ipynb_file: Path) -> Optional[Path]:
-        """Convert a single .ipynb file to Marimo WASM format."""
-        # Create output paths
-        notebook_name = ipynb_file.stem
-        marimo_py_file = self.marimo_gallery_dir / f"{notebook_name}.py"
-        marimo_html_file = self.marimo_gallery_dir / f"{notebook_name}.html"
-
-        try:
-            # Step 1: Convert .ipynb to Marimo .py format
-            result = subprocess.run([
-                'marimo', 'convert', str(ipynb_file),
-                '-o', str(marimo_py_file)
-            ], capture_output=True, text=True, check=True)
-
-            logger.debug(f"Converted {ipynb_file.name} to Marimo format")
-
-            # Step 2: Export Marimo notebook to WASM HTML
-            result = subprocess.run([
-                'marimo', 'export', 'html-wasm', '--mode', 'edit', str(marimo_py_file),
-                '-o', str(marimo_html_file)
-            ], capture_output=True, text=True, check=True)
-
-            logger.debug(f"Exported {notebook_name} to WASM HTML")
-            return marimo_html_file
-
-        except subprocess.CalledProcessError as e:
-            logger.error(f"Marimo command failed for {ipynb_file.name}: {e.stderr}")
-            return None
-        except FileNotFoundError:
-            logger.error("marimo command not found - make sure marimo is installed and in PATH")
-            return None
 
     def _save_gallery_manifest(self, converted_notebooks: Dict[str, str]) -> None:
         """Save manifest of converted Gallery notebooks."""
