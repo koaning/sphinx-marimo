@@ -1,9 +1,11 @@
 """Integration with Sphinx Gallery for Marimo launch buttons."""
 
 import subprocess
+import time
 from pathlib import Path
 from typing import Optional, Dict, Any
 import json
+import logging
 
 from joblib import Parallel, delayed, Memory
 from sphinx.application import Sphinx
@@ -26,19 +28,11 @@ def _convert_notebook_standalone(
 
         # Check cache if available
         if memory:
-            ipynb_content = ipynb_file.read_text()
-            ipynb_mtime = ipynb_file.stat().st_mtime
             cached_convert = memory.cache(_convert_notebook_impl)
-            converted_path = cached_convert(
-                ipynb_file, marimo_py_file, marimo_html_file, ipynb_content, ipynb_mtime
-            )
+            converted_path = cached_convert(ipynb_file, marimo_py_file, marimo_html_file)
         else:
-            converted_path = _convert_notebook_impl(
-                ipynb_file, marimo_py_file, marimo_html_file
-            )
+            converted_path = _convert_notebook_impl(ipynb_file, marimo_py_file, marimo_html_file)
 
-        if converted_path:
-            logger.info(f"Converted: {ipynb_file.name}")
         return (ipynb_file, converted_path)
     except Exception as e:
         logger.error(f"Failed to convert {ipynb_file.name}: {e}")
@@ -55,8 +49,6 @@ def _convert_notebook_impl(
         # Step 1: Convert .ipynb to Marimo .py format
         result = subprocess.run(
             ["marimo", "convert", str(ipynb_file), "-o", str(marimo_py_file)],
-            capture_output=True,
-            text=True,
             check=True,
         )
 
@@ -74,8 +66,6 @@ def _convert_notebook_impl(
                 "-o",
                 str(marimo_html_file),
             ],
-            capture_output=True,
-            text=True,
             check=True,
         )
 
@@ -83,7 +73,7 @@ def _convert_notebook_impl(
         return marimo_html_file
 
     except subprocess.CalledProcessError as e:
-        logger.error(f"Marimo command failed for {ipynb_file.name}: {e.stderr}")
+        logger.error(f"Marimo command failed for {ipynb_file.name}: {e}")
         return None
     except FileNotFoundError:
         logger.error(
@@ -177,6 +167,10 @@ class GalleryMarimoIntegration:
             logger.info(f"Converting in parallel with {self.n_jobs} jobs")
             # Use generator mode to get results as they complete
             # Pass necessary parameters instead of self to avoid pickling issues
+            total = len(ipynb_files)
+            completed = 0
+            start_time = time.time()
+
             for ipynb_file, converted_path in Parallel(n_jobs=self.n_jobs, return_as="generator")(
                 delayed(_convert_notebook_standalone)(
                     ipynb_file,
@@ -186,18 +180,37 @@ class GalleryMarimoIntegration:
                 for ipynb_file in ipynb_files
             ):
                 if converted_path:
+                    completed += 1
+                    elapsed = time.time() - start_time
+                    avg_time = elapsed / completed
+                    remaining = total - completed
+                    eta = avg_time * remaining
+                    logger.info(
+                        f"Converted {completed}/{total}: {ipynb_file.name} "
+                        f"(avg: {avg_time:.1f}s/notebook, ETA: {eta:.0f}s)"
+                    )
                     # Store relative path from static root for web access
                     rel_path = converted_path.relative_to(Path(self.app.outdir) / "_static")
                     converted_notebooks[ipynb_file.stem] = str(rel_path)
         else:
             # Sequential conversion
-            for i, ipynb_file in enumerate(ipynb_files):
-                logger.info(f"Converting {i+1}/{len(ipynb_files)}: {ipynb_file.name}")
+            total = len(ipynb_files)
+            start_time = time.time()
+
+            for i, ipynb_file in enumerate(ipynb_files, 1):
                 try:
                     _, converted_path = _convert_notebook_standalone(
                         ipynb_file, self.marimo_gallery_dir, self.memory
                     )
                     if converted_path:
+                        elapsed = time.time() - start_time
+                        avg_time = elapsed / i
+                        remaining = total - i
+                        eta = avg_time * remaining
+                        logger.info(
+                            f"Converted {i}/{total}: {ipynb_file.name} "
+                            f"(avg: {avg_time:.1f}s/notebook, ETA: {eta:.0f}s)"
+                        )
                         # Store relative path from static root for web access
                         rel_path = converted_path.relative_to(Path(self.app.outdir) / "_static")
                         converted_notebooks[ipynb_file.stem] = str(rel_path)

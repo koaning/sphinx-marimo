@@ -10,7 +10,8 @@ build-docs:
 clean:
     rm -rf _docs/_build/
     rm -rf docs/*
-    echo "Cleaned build artifacts"
+    rm -rf docs/_build/.marimo_cache
+    echo "Cleaned build artifacts and cache"
 
 # Development server (if you want to test locally)
 serve:

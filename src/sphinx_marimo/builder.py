@@ -1,6 +1,7 @@
 import json
 import shutil
 import subprocess
+import time
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -50,18 +51,42 @@ class MarimoBuilder:
             if self.parallel_build and len(notebook_files) > 0:
                 logger.info(f"  Building in parallel with {self.n_jobs} jobs")
                 # Use generator mode to get results as they complete
+                total = len(notebook_files)
+                completed = 0
+                start_time = time.time()
+
                 for result in Parallel(n_jobs=self.n_jobs, return_as="generator")(
                     delayed(self._build_notebook)(notebook_path, notebook_output_dir)
                     for notebook_path in notebook_files
                 ):
                     if result:
                         self.notebooks.append(result)
+                        completed += 1
+                        elapsed = time.time() - start_time
+                        avg_time = elapsed / completed
+                        remaining = total - completed
+                        eta = avg_time * remaining
+                        logger.info(
+                            f"  Built notebook {completed}/{total}: {result['path']} "
+                            f"(avg: {avg_time:.1f}s/notebook, ETA: {eta:.0f}s)"
+                        )
             else:
                 # Sequential build
-                for notebook_path in notebook_files:
+                total = len(notebook_files)
+                start_time = time.time()
+
+                for i, notebook_path in enumerate(notebook_files, 1):
                     result = self._build_notebook(notebook_path, notebook_output_dir)
                     if result:
                         self.notebooks.append(result)
+                        elapsed = time.time() - start_time
+                        avg_time = elapsed / i
+                        remaining = total - i
+                        eta = avg_time * remaining
+                        logger.info(
+                            f"  Built notebook {i}/{total}: {result['path']} "
+                            f"(avg: {avg_time:.1f}s/notebook, ETA: {eta:.0f}s)"
+                        )
         else:
             logger.warning(f"  Source directory does not exist: {self.source_dir}")
 
@@ -79,20 +104,14 @@ class MarimoBuilder:
 
     def _build_notebook_cached(self, notebook_path: Path, output_dir: Path) -> Optional[Dict[str, str]]:
         """Cached version of notebook building."""
-        # Read notebook content for cache key
-        notebook_content = notebook_path.read_text()
-        notebook_mtime = notebook_path.stat().st_mtime
-
         # Use memory.cache to wrap the build function
         cached_build = self.memory.cache(self._build_notebook_impl)
-        return cached_build(notebook_path, output_dir, notebook_content, notebook_mtime)
+        return cached_build(notebook_path, output_dir)
 
     def _build_notebook_impl(
         self,
         notebook_path: Path,
         output_dir: Path,
-        notebook_content: Optional[str] = None,
-        notebook_mtime: Optional[float] = None,
     ) -> Optional[Dict[str, str]]:
         """Internal implementation of notebook building."""
         relative_path = notebook_path.relative_to(self.source_dir)
@@ -102,8 +121,6 @@ class MarimoBuilder:
         try:
             result = subprocess.run(
                 ["marimo", "export", "html-wasm", str(notebook_path), "-o", str(output_path), "--force"],
-                capture_output=True,
-                text=True,
                 check=True,
             )
 
@@ -113,11 +130,10 @@ class MarimoBuilder:
                 "output": f"notebooks/{output_name}.html",
             }
 
-            logger.info(f"  Built notebook: {relative_path}")
             return notebook_dict
 
         except subprocess.CalledProcessError as e:
-            logger.error(f"  Failed to build notebook {notebook_path}: {e.stderr}")
+            logger.error(f"  Failed to build notebook {notebook_path}: {e}")
             return None
         except FileNotFoundError:
             logger.warning("  marimo command not found. Skipping WASM build.")
