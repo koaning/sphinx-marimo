@@ -462,6 +462,11 @@
 <span class="n">marimo_default_height</span> <span class="o">=</span> <span class="s1">&#39;600px&#39;</span>           <span class="c1"># Default iframe height</span>
 <span class="n">marimo_default_width</span> <span class="o">=</span> <span class="s1">&#39;100%&#39;</span>             <span class="c1"># Default iframe width</span>
 
+<span class="c1"># Parallel build and caching</span>
+<span class="n">marimo_parallel_build</span> <span class="o">=</span> <span class="kc">True</span>              <span class="c1"># Enable parallel notebook building</span>
+<span class="n">marimo_n_jobs</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>                        <span class="c1"># Number of parallel jobs (-1 = auto-detect CPU cores)</span>
+<span class="n">marimo_cache_notebooks</span> <span class="o">=</span> <span class="kc">True</span>             <span class="c1"># Enable caching to speed up repeated builds</span>
+
 <span class="c1"># Sphinx Gallery integration</span>
 <span class="n">sphinx_gallery_conf</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;examples_dirs&#39;</span><span class="p">:</span> <span class="s1">&#39;../gallery_examples&#39;</span><span class="p">,</span>

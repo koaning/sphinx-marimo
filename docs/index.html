@@ -458,6 +458,11 @@ requiring a server.</p>
 <span class="n">marimo_default_height</span> <span class="o">=</span> <span class="s1">&#39;600px&#39;</span>
 <span class="n">marimo_default_width</span> <span class="o">=</span> <span class="s1">&#39;100%&#39;</span>
 
+<span class="c1"># Parallel build and caching (default values shown)</span>
+<span class="n">marimo_parallel_build</span> <span class="o">=</span> <span class="kc">True</span>       <span class="c1"># Enable parallel notebook building</span>
+<span class="n">marimo_n_jobs</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>                  <span class="c1"># Number of parallel jobs (-1 = auto-detect CPU cores)</span>
+<span class="n">marimo_cache_notebooks</span> <span class="o">=</span> <span class="kc">True</span>       <span class="c1"># Enable caching to speed up repeated builds</span>
+
 <span class="c1"># Gallery integration button visibility (both default to True)</span>
 <span class="n">marimo_show_footer_button</span> <span class="o">=</span> <span class="kc">True</span>   <span class="c1"># Show download button in page footer</span>
 <span class="n">marimo_show_sidebar_button</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Show launch button in right sidebar</span>
