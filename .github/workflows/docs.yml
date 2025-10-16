@@ -3,8 +3,6 @@ name: Documentation Build
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
   build-docs:
@@ -33,18 +31,3 @@ jobs:
 
       - name: Build documentation
         run: just build-docs
-
-      - name: Upload documentation artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: documentation
-          path: docs/
-          retention-days: 7
-
-      - name: Check for broken links (optional)
-        continue-on-error: true
-        run: |
-          # Check that key files were generated
-          test -f docs/index.html || exit 1
-          test -d docs/_static/marimo || exit 1
-          echo "Documentation build validation passed!"
