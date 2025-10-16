@@ -10,7 +10,8 @@ build-docs:
 clean:
     rm -rf _docs/_build/
     rm -rf docs/*
-    echo "Cleaned build artifacts"
+    rm -rf docs/_build/.marimo_cache
+    echo "Cleaned build artifacts and cache"
 
 # Development server (if you want to test locally)
 serve:
@@ -19,10 +20,6 @@ serve:
 # Run tests
 test:
     uv run pytest tests/ -v
-
-# Run tests with coverage
-test-cov:
-    uv run pytest tests/ -v --cov=src/sphinx_marimo --cov-report=term-missing
 
 # Full rebuild
 rebuild: clean build-docs

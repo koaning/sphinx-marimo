@@ -29,16 +29,35 @@ def config_inited(app: Sphinx, config: Config) -> None:
     if not hasattr(config, "marimo_show_sidebar_button"):
         config.marimo_show_sidebar_button = True
 
+    # Parallel build and caching defaults
+    if not hasattr(config, "marimo_parallel_build"):
+        config.marimo_parallel_build = True
+
+    if not hasattr(config, "marimo_n_jobs"):
+        config.marimo_n_jobs = -1
+
+    if not hasattr(config, "marimo_cache_notebooks"):
+        config.marimo_cache_notebooks = True
+
 
 def build_marimo_notebooks(app: Sphinx) -> None:
     # Static files go directly in _static/marimo in the build output
     static_dir = Path(app.outdir) / "_static" / "marimo"
+
+    # Setup cache directory if caching is enabled
+    cache_dir = None
+    if app.config.marimo_cache_notebooks:
+        cache_dir = Path(app.outdir) / "_build" / ".marimo_cache"
+        cache_dir.mkdir(parents=True, exist_ok=True)
 
     # Build regular Marimo notebooks from marimo directive
     builder = MarimoBuilder(
         source_dir=Path(app.srcdir) / app.config.marimo_notebook_dir,
         build_dir=Path(app.outdir) / app.config.marimo_build_dir,
         static_dir=static_dir,
+        parallel_build=app.config.marimo_parallel_build,
+        n_jobs=app.config.marimo_n_jobs,
+        cache_dir=cache_dir,
     )
 
     builder.build_all_notebooks()
@@ -52,7 +71,18 @@ def gallery_build_finished(app: Sphinx, exc) -> None:
         # Build failed, skip Gallery integration
         return
 
-    gallery_integration = GalleryMarimoIntegration(app)
+    # Setup cache directory if caching is enabled
+    cache_dir = None
+    if app.config.marimo_cache_notebooks:
+        cache_dir = Path(app.outdir) / "_build" / ".marimo_cache"
+        cache_dir.mkdir(parents=True, exist_ok=True)
+
+    gallery_integration = GalleryMarimoIntegration(
+        app,
+        parallel_build=app.config.marimo_parallel_build,
+        n_jobs=app.config.marimo_n_jobs,
+        cache_dir=cache_dir,
+    )
 
     # Detect and setup Gallery integration
     if gallery_integration.detect_sphinx_gallery():
@@ -62,6 +92,7 @@ def gallery_build_finished(app: Sphinx, exc) -> None:
 
 def html_page_context(app: Sphinx, pagename: str, templatename: str, context: dict, doctree) -> None:
     """Inject Marimo launcher information into page context for Gallery pages."""
+    # Note: We don't need parallel/caching config here since we're just reading info
     gallery_integration = GalleryMarimoIntegration(app)
 
     notebook_info = gallery_integration.get_notebook_info(pagename)
@@ -102,6 +133,12 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     # Gallery integration configuration
     app.add_config_value("marimo_show_footer_button", True, "html")
     app.add_config_value("marimo_show_sidebar_button", True, "html")
+
+    # Parallel build and caching configuration
+    app.add_config_value("marimo_parallel_build", True, "html")
+    app.add_config_value("marimo_n_jobs", -1, "html")
+    app.add_config_value("marimo_cache_notebooks", True, "html")
+
     app.add_directive("marimo", MarimoDirective)
 
     # Event hooks

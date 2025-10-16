@@ -39,6 +39,11 @@ To use sphinx-marimo in your documentation, add it to your ``conf.py``:
    marimo_default_height = '600px'           # Default iframe height
    marimo_default_width = '100%'             # Default iframe width
 
+   # Parallel build and caching
+   marimo_parallel_build = True              # Enable parallel notebook building
+   marimo_n_jobs = -1                        # Number of parallel jobs (-1 = auto-detect CPU cores)
+   marimo_cache_notebooks = True             # Enable caching to speed up repeated builds
+
    # Sphinx Gallery integration
    sphinx_gallery_conf = {
        'examples_dirs': '../gallery_examples',

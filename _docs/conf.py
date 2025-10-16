@@ -34,6 +34,11 @@ marimo_output_dir = '_static/marimo'
 marimo_default_height = '600px'
 marimo_default_width = '100%'
 
+# Parallel build and caching (default values shown)
+marimo_parallel_build = True    # Enable parallel notebook building
+marimo_n_jobs = -1               # Number of parallel jobs (-1 = auto-detect CPU cores)
+marimo_cache_notebooks = True    # Enable caching to speed up repeated builds
+
 # -- Sphinx Gallery configuration -------------------------------------------
 sphinx_gallery_conf = {
     'examples_dirs': '../gallery_examples',   # Path to gallery example scripts

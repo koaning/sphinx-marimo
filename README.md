@@ -2,15 +2,6 @@
 
 A Sphinx extension for embedding interactive Marimo notebooks in documentation with WASM support, similar to Jupyter-Lite.
 
-## Features
-
-- ✨ **Zero-config WASM deployment** - Notebooks run entirely in the browser
-- ✨ **Seamless Sphinx integration** - Works with any Sphinx theme
-- 🚀 **Interactive notebooks** - Full Marimo interactivity in your docs
-- 🚀 **Build-time compilation** - Notebooks are compiled to WASM during docs build
-- ✨ **Static site compatible** - Works with GitHub Pages, Read the Docs, etc.
-- 🎨 **Sphinx Gallery integration** - Automatically adds "launch marimo" buttons to Gallery examples
-
 ## Installation
 
 Using `uv` (recommended):

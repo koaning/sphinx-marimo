@@ -69,6 +69,11 @@ Add the extension to your ``conf.py``:
    marimo_default_height = '600px'
    marimo_default_width = '100%'
 
+   # Parallel build and caching (default values shown)
+   marimo_parallel_build = True       # Enable parallel notebook building
+   marimo_n_jobs = -1                  # Number of parallel jobs (-1 = auto-detect CPU cores)
+   marimo_cache_notebooks = True       # Enable caching to speed up repeated builds
+
    # Gallery integration button visibility (both default to True)
    marimo_show_footer_button = True   # Show download button in page footer
    marimo_show_sidebar_button = True  # Show launch button in right sidebar
