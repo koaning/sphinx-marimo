@@ -8,9 +8,7 @@ from .builder import MarimoBuilder
 from .directives import MarimoDirective
 from .static import setup_static_files
 from .gallery_integration import GalleryMarimoIntegration
-
-__version__ = "0.1.0"
-
+from importlib.metadata import version
 
 def config_inited(app: Sphinx, config: Config) -> None:
     if not hasattr(config, "marimo_notebook_dir"):
@@ -165,7 +163,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.add_js_file("marimo/gallery-launcher.js")
 
     return {
-        "version": __version__,
+        "version": version("sphinx-marimo"),
         "parallel_read_safe": True,
         "parallel_write_safe": True,
     }

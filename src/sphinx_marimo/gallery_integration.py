@@ -5,7 +5,6 @@ import time
 from pathlib import Path
 from typing import Optional, Dict, Any
 import json
-import logging
 
 from joblib import Parallel, delayed, Memory
 from sphinx.application import Sphinx
@@ -24,29 +23,25 @@ def _convert_notebook_standalone(
     move_imports_to_top: bool = False,
 ) -> tuple[Path, Optional[Path]]:
     """Standalone function for parallel notebook conversion."""
-    try:
-        # Create output paths
-        notebook_name = ipynb_file.stem
-        marimo_py_file = marimo_gallery_dir / f"{notebook_name}.py"
-        marimo_html_file = marimo_gallery_dir / f"{notebook_name}.html"
+    # Create output paths
+    notebook_name = ipynb_file.stem
+    marimo_py_file = marimo_gallery_dir / f"{notebook_name}.py"
+    marimo_html_file = marimo_gallery_dir / f"{notebook_name}.html"
 
-        # Check cache if available
-        if memory:
-            cached_convert = memory.cache(_convert_notebook_impl)
-            converted_path = cached_convert(
-                ipynb_file, marimo_py_file, marimo_html_file,
-                prepend_markdown, move_imports_to_top
-            )
-        else:
-            converted_path = _convert_notebook_impl(
-                ipynb_file, marimo_py_file, marimo_html_file,
-                prepend_markdown, move_imports_to_top
-            )
+    # Check cache if available
+    if memory:
+        cached_convert = memory.cache(_convert_notebook_impl)
+        converted_path = cached_convert(
+            ipynb_file, marimo_py_file, marimo_html_file,
+            prepend_markdown, move_imports_to_top
+        )
+    else:
+        converted_path = _convert_notebook_impl(
+            ipynb_file, marimo_py_file, marimo_html_file,
+            prepend_markdown, move_imports_to_top
+        )
 
-        return (ipynb_file, converted_path)
-    except Exception as e:
-        logger.error(f"Failed to convert {ipynb_file.name}: {e}")
-        return (ipynb_file, None)
+    return (ipynb_file, converted_path)
 
 
 def _convert_notebook_impl(

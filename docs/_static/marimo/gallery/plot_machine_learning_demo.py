@@ -4,10 +4,6 @@ __generated_with = "0.16.2"
 app = marimo.App()
 
 
-@app.cell
-def _():
-    import marimo as mo
-    return (mo,)
 @app.cell(hide_code=True)
 def __(mo):
     mo.md(
@@ -20,6 +16,11 @@ Some features may behave differently in marimo.
     )
     return
 
+
+@app.cell
+def _():
+    import marimo as mo
+    return (mo,)
 
 @app.cell(hide_code=True)
 def _(mo):
@@ -133,7 +134,6 @@ def _():
     print("   • Modify dataset parameters")
     print("   • See real-time performance updates")
     return
-
 
 if __name__ == "__main__":
     app.run()
