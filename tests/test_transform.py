@@ -145,7 +145,8 @@ def __():
     import_pos = result.find("import marimo as mo")
     x_pos = result.find("x = 1")
 
-    assert warning_pos < import_pos < x_pos
+    assert warning_pos < import_pos 
+    assert import_pos < x_pos
 
 
 def test_transform_notebook_preserves_preamble(tmp_path):

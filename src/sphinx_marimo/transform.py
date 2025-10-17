@@ -88,7 +88,7 @@ def __(mo):
 '''
 
 
-def prepend_markdown(content: str, markdown_text: str) -> str:
+def _prepend_markdown(content: str, markdown_text: str) -> str:
     """
     Prepend a markdown cell to the notebook content.
 
@@ -125,7 +125,7 @@ def __(mo):
     return preamble + "".join(cells) + postamble
 
 
-def move_imports_to_top(content: str) -> str:
+def _move_imports_to_top(content: str) -> str:
     """
     Move all cells containing 'import marimo' to the top.
 
@@ -151,6 +151,16 @@ def move_imports_to_top(content: str) -> str:
     return preamble + "".join(cells) + postamble
 
 
+def prepend_markdown(content: str, markdown_text: str) -> str:
+    """Public API: prepend markdown cell to notebook content."""
+    return _prepend_markdown(content, markdown_text)
+
+
+def move_imports_to_top(content: str) -> str:
+    """Public API: move import cells to top of notebook."""
+    return _move_imports_to_top(content)
+
+
 def transform_notebook(
     notebook_path: Path,
     output_path: Optional[Path] = None,
@@ -171,11 +181,13 @@ def transform_notebook(
     """
     content = notebook_path.read_text()
 
-    if prepend_markdown:
-        content = globals()['prepend_markdown'](content, prepend_markdown)
-
+    # Apply move_imports_to_top first so imports are at the top
+    # before we try to insert markdown after them
     if move_imports_to_top:
-        content = globals()['move_imports_to_top'](content)
+        content = _move_imports_to_top(content)
+
+    if prepend_markdown:
+        content = _prepend_markdown(content, prepend_markdown)
 
     target_path = output_path or notebook_path
     target_path.write_text(content)
