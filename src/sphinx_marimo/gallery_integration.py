@@ -5,11 +5,12 @@ import time
 from pathlib import Path
 from typing import Optional, Dict, Any
 import json
-import logging
 
 from joblib import Parallel, delayed, Memory
 from sphinx.application import Sphinx
 from sphinx.util import logging as sphinx_logging
+
+from .transform import transform_notebook
 
 logger = sphinx_logging.getLogger(__name__)
 
@@ -18,68 +19,90 @@ def _convert_notebook_standalone(
     ipynb_file: Path,
     marimo_gallery_dir: Path,
     memory: Optional[Memory],
+    prepend_markdown: Optional[str] = None,
+    move_imports_to_top: bool = False,
 ) -> tuple[Path, Optional[Path]]:
     """Standalone function for parallel notebook conversion."""
-    try:
-        # Create output paths
-        notebook_name = ipynb_file.stem
-        marimo_py_file = marimo_gallery_dir / f"{notebook_name}.py"
-        marimo_html_file = marimo_gallery_dir / f"{notebook_name}.html"
+    # Create output paths
+    notebook_name = ipynb_file.stem
+    marimo_py_file = marimo_gallery_dir / f"{notebook_name}.py"
+    marimo_html_file = marimo_gallery_dir / f"{notebook_name}.html"
 
-        # Check cache if available
-        if memory:
-            cached_convert = memory.cache(_convert_notebook_impl)
-            converted_path = cached_convert(ipynb_file, marimo_py_file, marimo_html_file)
-        else:
-            converted_path = _convert_notebook_impl(ipynb_file, marimo_py_file, marimo_html_file)
+    # Check cache if available
+    if memory:
+        cached_convert = memory.cache(_convert_notebook_impl)
+        converted_path = cached_convert(
+            ipynb_file, marimo_py_file, marimo_html_file,
+            prepend_markdown, move_imports_to_top
+        )
+    else:
+        converted_path = _convert_notebook_impl(
+            ipynb_file, marimo_py_file, marimo_html_file,
+            prepend_markdown, move_imports_to_top
+        )
 
-        return (ipynb_file, converted_path)
-    except Exception as e:
-        logger.error(f"Failed to convert {ipynb_file.name}: {e}")
-        return (ipynb_file, None)
+    return (ipynb_file, converted_path)
 
 
 def _convert_notebook_impl(
     ipynb_file: Path,
     marimo_py_file: Path,
     marimo_html_file: Path,
+    prepend_markdown: Optional[str] = None,
+    move_imports_to_top: bool = False,
 ) -> Optional[Path]:
     """Actual implementation of notebook conversion (cacheable)."""
-    try:
-        # Step 1: Convert .ipynb to Marimo .py format
-        result = subprocess.run(
-            ["marimo", "convert", str(ipynb_file), "-o", str(marimo_py_file)],
-            check=True,
+    # Step 1: Convert .ipynb to Marimo .py format
+    # Remove existing file if it exists (marimo convert doesn't have --force)
+    if marimo_py_file.exists():
+        marimo_py_file.unlink()
+
+    result = subprocess.run(
+        ["marimo", "convert", str(ipynb_file), "-o", str(marimo_py_file)],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        logger.error(f"Failed to convert {ipynb_file.name}:")
+        logger.error(f"  stdout: {result.stdout}")
+        logger.error(f"  stderr: {result.stderr}")
+        raise RuntimeError(f"marimo convert failed for {ipynb_file.name}")
+
+    logger.debug(f"Converted {ipynb_file.name} to Marimo format")
+
+    # Step 2: Apply transformations if requested
+    if prepend_markdown or move_imports_to_top:
+        transform_notebook(
+            marimo_py_file,
+            output_path=marimo_py_file,
+            prepend_markdown=prepend_markdown,
+            move_imports_to_top=move_imports_to_top,
         )
+        logger.debug(f"Applied transformations to {ipynb_file.name}")
 
-        logger.debug(f"Converted {ipynb_file.name} to Marimo format")
+    # Step 3: Export Marimo notebook to WASM HTML
+    result = subprocess.run(
+        [
+            "marimo",
+            "export",
+            "html-wasm",
+            "--mode",
+            "edit",
+            str(marimo_py_file),
+            "-o",
+            str(marimo_html_file),
+        ],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        logger.error(f"Failed to export {ipynb_file.name} to WASM:")
+        logger.error(f"  stdout: {result.stdout}")
+        logger.error(f"  stderr: {result.stderr}")
+        raise RuntimeError(f"marimo export failed for {ipynb_file.name}")
 
-        # Step 2: Export Marimo notebook to WASM HTML
-        result = subprocess.run(
-            [
-                "marimo",
-                "export",
-                "html-wasm",
-                "--mode",
-                "edit",
-                str(marimo_py_file),
-                "-o",
-                str(marimo_html_file),
-            ],
-            check=True,
-        )
-
-        logger.debug(f"Exported {ipynb_file.stem} to WASM HTML")
-        return marimo_html_file
-
-    except subprocess.CalledProcessError as e:
-        logger.error(f"Marimo command failed for {ipynb_file.name}: {e}")
-        return None
-    except FileNotFoundError:
-        logger.error(
-            "marimo command not found - make sure marimo is installed and in PATH"
-        )
-        return None
+    logger.debug(f"Exported {ipynb_file.stem} to WASM HTML")
+    return marimo_html_file
 
 
 class GalleryMarimoIntegration:
@@ -106,6 +129,10 @@ class GalleryMarimoIntegration:
         self.n_jobs = (
             n_jobs if n_jobs is not None else getattr(app.config, "marimo_n_jobs", -1)
         )
+
+        # Transformation configuration
+        self.prepend_markdown = getattr(app.config, "marimo_prepend_markdown", None)
+        self.move_imports_to_top = getattr(app.config, "marimo_move_imports_to_top", False)
 
         # Setup caching
         self.memory: Optional[Memory] = None
@@ -175,7 +202,9 @@ class GalleryMarimoIntegration:
                 delayed(_convert_notebook_standalone)(
                     ipynb_file,
                     self.marimo_gallery_dir,
-                    self.memory
+                    self.memory,
+                    self.prepend_markdown,
+                    self.move_imports_to_top,
                 )
                 for ipynb_file in ipynb_files
             ):
@@ -200,7 +229,8 @@ class GalleryMarimoIntegration:
             for i, ipynb_file in enumerate(ipynb_files, 1):
                 try:
                     _, converted_path = _convert_notebook_standalone(
-                        ipynb_file, self.marimo_gallery_dir, self.memory
+                        ipynb_file, self.marimo_gallery_dir, self.memory,
+                        self.prepend_markdown, self.move_imports_to_top
                     )
                     if converted_path:
                         elapsed = time.time() - start_time

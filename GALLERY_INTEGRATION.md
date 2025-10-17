@@ -104,7 +104,21 @@ The launcher buttons automatically match Sphinx Gallery's button style:
 
 ```python
 # In conf.py
-marimo_gallery_button_text = 'open in marimo'  # Customize button text
+
+# Button visibility
+marimo_show_footer_button = True   # Show button in page footer
+marimo_show_sidebar_button = True  # Show button in right sidebar
+
+# Notebook transformations (applied to converted Gallery notebooks)
+marimo_prepend_markdown = None     # Add warning/notice to converted notebooks
+marimo_move_imports_to_top = False # Reorder import cells to execute first
+
+# Example: Add conversion warning
+marimo_prepend_markdown = """
+⚠️ **Note**: This notebook was automatically converted from Jupyter.
+Some features may behave differently in Marimo.
+"""
+marimo_move_imports_to_top = True
 ```
 
 ## File Structure After Build

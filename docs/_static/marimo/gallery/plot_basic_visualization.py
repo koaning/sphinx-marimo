@@ -5,6 +5,24 @@ app = marimo.App()
 
 
 @app.cell(hide_code=True)
+def __(mo):
+    mo.md(
+        r"""
+        
+⚠️ **Note**: This notebook was automatically converted from Jupyter.
+Some features may behave differently in marimo.
+
+        """
+    )
+    return
+
+
+@app.cell
+def _():
+    import marimo as mo
+    return (mo,)
+
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(
         r"""
@@ -57,13 +75,6 @@ def _():
     # frequency, amplitude, or phase of the waves
     print("Interactive version available via 'launch marimo' button!")
     return
-
-
-@app.cell
-def _():
-    import marimo as mo
-    return (mo,)
-
 
 if __name__ == "__main__":
     app.run()
