@@ -76,11 +76,18 @@ sphinx_gallery_conf = {
     'gallery_dirs': 'auto_examples',
 }
 
-# Customize button text (optional)
-marimo_gallery_button_text = 'launch marimo'
+# Control button visibility
+marimo_show_footer_button = True
+marimo_show_sidebar_button = True
+
+# Transform converted notebooks (optional)
+marimo_prepend_markdown = """
+⚠️ **Note**: This notebook was automatically converted from Jupyter.
+"""
+marimo_move_imports_to_top = True  # Ensure imports run first
 ```
 
-Gallery examples will automatically include red "launch marimo" buttons alongside existing Binder/JupyterLite buttons.
+Gallery examples will automatically include "launch marimo" buttons alongside existing Binder/JupyterLite buttons.
 
 ## Architecture
 

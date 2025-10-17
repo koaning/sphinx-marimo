@@ -39,6 +39,13 @@ marimo_parallel_build = True    # Enable parallel notebook building
 marimo_n_jobs = -1               # Number of parallel jobs (-1 = auto-detect CPU cores)
 marimo_cache_notebooks = True    # Enable caching to speed up repeated builds
 
+# Add a warning to all converted Gallery notebooks
+marimo_prepend_markdown = """
+⚠️ **Note**: This notebook was automatically converted from Jupyter.
+Some features may behave differently in marimo.
+"""
+marimo_move_imports_to_top = True
+
 # -- Sphinx Gallery configuration -------------------------------------------
 sphinx_gallery_conf = {
     'examples_dirs': '../gallery_examples',   # Path to gallery example scripts
