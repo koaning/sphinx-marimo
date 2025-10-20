@@ -185,3 +185,9 @@ This project uses `uv` instead of `pip`:
 - `uv add package` to add dependencies
 - `uv pip install -e .` for development install
 - `uv venv` to create virtual environment
+
+## Style
+
+Never use try/catch blocks. Errors should happen in your face. 
+Prefer pathlib.Path().read_text() over open()
+Never import libraries within functions
