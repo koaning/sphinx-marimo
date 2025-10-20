@@ -91,6 +91,7 @@ def _convert_notebook_impl(
             str(marimo_py_file),
             "-o",
             str(marimo_html_file),
+            "--force"
         ],
         capture_output=True,
         text=True,
