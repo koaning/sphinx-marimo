@@ -118,28 +118,18 @@ class MarimoBuilder:
         output_name = str(relative_path).replace("/", "_").replace(".py", "")
         output_path = output_dir / f"{output_name}.html"
 
-        try:
-            result = subprocess.run(
-                ["marimo", "export", "html-wasm", str(notebook_path), "-o", str(output_path), "--force"],
-                check=True,
-            )
+        subprocess.run(
+            ["marimo", "export", "html-wasm", str(notebook_path), "-o", str(output_path), "--force"],
+            check=True,
+        )
 
-            notebook_dict = {
-                "name": output_name,
-                "path": str(relative_path),
-                "output": f"notebooks/{output_name}.html",
-            }
+        notebook_dict = {
+            "name": output_name,
+            "path": str(relative_path),
+            "output": f"notebooks/{output_name}.html",
+        }
 
-            return notebook_dict
-
-        except subprocess.CalledProcessError as e:
-            logger.error(f"  Failed to build notebook {notebook_path}: {e}")
-            return None
-        except FileNotFoundError:
-            logger.warning("  marimo command not found. Skipping WASM build.")
-            self._create_placeholder(output_dir / f"{output_name}.html", relative_path)
-            return None
-
+        return notebook_dict
     def _create_placeholder(self, output_path: Path, source_path: Path) -> None:
         placeholder_html = f"""
 <!DOCTYPE html>

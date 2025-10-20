@@ -8,9 +8,7 @@ from .builder import MarimoBuilder
 from .directives import MarimoDirective
 from .static import setup_static_files
 from .gallery_integration import GalleryMarimoIntegration
-
-__version__ = "0.1.0"
-
+from importlib.metadata import version
 
 def config_inited(app: Sphinx, config: Config) -> None:
     if not hasattr(config, "marimo_notebook_dir"):
@@ -38,6 +36,13 @@ def config_inited(app: Sphinx, config: Config) -> None:
 
     if not hasattr(config, "marimo_cache_notebooks"):
         config.marimo_cache_notebooks = True
+
+    # Transformation defaults
+    if not hasattr(config, "marimo_prepend_markdown"):
+        config.marimo_prepend_markdown = None
+
+    if not hasattr(config, "marimo_move_imports_to_top"):
+        config.marimo_move_imports_to_top = False
 
 
 def build_marimo_notebooks(app: Sphinx) -> None:
@@ -139,6 +144,10 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.add_config_value("marimo_n_jobs", -1, "html")
     app.add_config_value("marimo_cache_notebooks", True, "html")
 
+    # Transformation configuration
+    app.add_config_value("marimo_prepend_markdown", None, "html")
+    app.add_config_value("marimo_move_imports_to_top", False, "html")
+
     app.add_directive("marimo", MarimoDirective)
 
     # Event hooks
@@ -154,7 +163,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.add_js_file("marimo/gallery-launcher.js")
 
     return {
-        "version": __version__,
+        "version": version("sphinx-marimo"),
         "parallel_read_safe": True,
         "parallel_write_safe": True,
     }

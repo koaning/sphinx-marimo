@@ -65,6 +65,7 @@ sphinx-marimo/
 - **Build process**: Edit `src/sphinx_marimo/builder.py`
 - **Directive behavior**: Edit `src/sphinx_marimo/directives.py`
 - **Styling/JS**: Edit `src/sphinx_marimo/static.py`
+- **Notebook transformation**: Edit `src/sphinx_marimo/transform.py`
 
 ### Testing Changes
 
@@ -110,6 +111,12 @@ Check the `docs/` directory for the built output, specifically:
    - Creates JavaScript loader for iframe management
    - Handles responsive design and error states
 
+5. **Notebook Transformation** (`transform.py`):
+   - Parses Marimo `.py` notebooks into cells
+   - Applies transformations (prepend markdown, reorder imports)
+   - Maintains notebook structure and syntax
+   - Integrated into conversion pipeline for Gallery notebooks
+
 ### Key Configuration
 
 In `_docs/conf.py`:
@@ -118,7 +125,32 @@ extensions = ['sphinx_marimo']
 marimo_notebook_dir = '../notebooks'  # Relative to _docs/
 marimo_default_height = '600px'
 marimo_default_width = '100%'
+
+# Notebook transformation options
+marimo_prepend_markdown = None  # Markdown to add as first cell
+marimo_move_imports_to_top = False  # Move import marimo cells to top
 ```
+
+### Notebook Transformation Features
+
+The extension can transform notebooks during the build process:
+
+**Prepend Markdown Cell**:
+Add a warning or notice to all converted notebooks:
+```python
+marimo_prepend_markdown = """
+⚠️ **Note**: This notebook was automatically converted from Jupyter.
+Some features may behave differently in Marimo.
+"""
+```
+
+**Move Import Cells to Top**:
+Ensure all `import marimo` statements execute first:
+```python
+marimo_move_imports_to_top = True
+```
+
+These transformations are especially useful when converting Jupyter notebooks via Sphinx Gallery integration.
 
 ## Lint and Typecheck Commands
 

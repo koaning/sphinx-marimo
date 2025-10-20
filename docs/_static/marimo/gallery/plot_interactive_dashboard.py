@@ -5,6 +5,24 @@ app = marimo.App()
 
 
 @app.cell(hide_code=True)
+def __(mo):
+    mo.md(
+        r"""
+        
+⚠️ **Note**: This notebook was automatically converted from Jupyter.
+Some features may behave differently in marimo.
+
+        """
+    )
+    return
+
+
+@app.cell
+def _():
+    import marimo as mo
+    return (mo,)
+
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(
         r"""
@@ -75,13 +93,6 @@ def _():
     print(f"Revenue per User: ${revenue_per_user[-1]:.2f}")
     print("\n💡 Launch in Marimo to add interactive filters, date ranges, and real-time updates!")
     return
-
-
-@app.cell
-def _():
-    import marimo as mo
-    return (mo,)
-
 
 if __name__ == "__main__":
     app.run()

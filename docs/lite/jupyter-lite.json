@@ -9,11 +9,6 @@
     "federated_extensions": [
       {
         "extension": "./extension",
-        "load": "static/remoteEntry.3745c44cbbd62cec9a73.js",
-        "name": "@jupyterlite/pyodide-kernel-extension"
-      },
-      {
-        "extension": "./extension",
         "load": "static/remoteEntry.7d60fb60e15f0d8ca127.js",
         "name": "jupyterlab-jupytext"
       },
@@ -299,14 +294,7 @@
     },
     "fullLabextensionsUrl": "./extensions",
     "fullStaticUrl": "./build",
-    "licensesUrl": "./lab/api/licenses",
-    "litePluginSettings": {
-      "@jupyterlite/pyodide-kernel-extension:kernel": {
-        "pipliteUrls": [
-          "./extensions/@jupyterlite/pyodide-kernel-extension/static/pypi/all.json?sha256=6428e372c283ca4b67a641295c5d9c8abeed5cf341b24ffe41b313fcdcaf9be4"
-        ]
-      }
-    }
+    "licensesUrl": "./lab/api/licenses"
   },
   "jupyter-lite-schema-version": 0
 }
