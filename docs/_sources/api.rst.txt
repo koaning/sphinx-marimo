@@ -67,10 +67,13 @@ Click-to-Load Configuration
 
 .. py:data:: marimo_click_to_load
 
-   Enable click-to-load feature for better performance. When enabled, notebooks show a
-   "Load Interactive Notebook" button instead of loading immediately.
+   Control how notebooks are loaded. Options:
 
-   :type: bool
+   * ``False`` - Notebooks load immediately (traditional behavior)
+   * ``True`` or ``"overlay"`` - Full-height overlay with centered button
+   * ``"compact"`` - Space-saving button that expands when clicked
+
+   :type: bool or str
    :default: True
 
 .. py:data:: marimo_load_button_text
@@ -116,8 +119,10 @@ Directive
       :type: string
 
       Override the global click-to-load setting for this specific notebook.
-      Accepts "true"/"false", "yes"/"no", or "1"/"0".
-      When enabled, shows a button instead of loading immediately.
+
+      * ``"false"`` - Load immediately
+      * ``"true"`` or ``"overlay"`` - Full-height overlay with button
+      * ``"compact"`` - Compact button that expands on click
 
    .. rst:directive:option:: load-button-text
       :type: string
@@ -136,15 +141,23 @@ Directive
          :width: 90%
          :theme: dark
 
-   Override click-to-load for specific notebook:
+   Different click-to-load modes:
 
    .. code-block:: rst
 
-      .. marimo:: heavy_computation.py
-         :height: 600px
-         :click-to-load: true
-         :load-button-text: Click to load heavy computation
-
-      .. marimo:: lightweight_demo.py
+      # Immediate loading (no button)
+      .. marimo:: quick_demo.py
          :height: 400px
          :click-to-load: false
+
+      # Full overlay with centered button
+      .. marimo:: analysis.py
+         :height: 600px
+         :click-to-load: overlay
+         :load-button-text: Start Analysis
+
+      # Compact button that expands
+      .. marimo:: heavy_computation.py
+         :height: 800px
+         :click-to-load: compact
+         :load-button-text: Run Heavy Computation

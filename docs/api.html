@@ -31,7 +31,7 @@
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="_static/marimo/marimo-embed.css?v=c7ee1c65" />
+    <link rel="stylesheet" type="text/css" href="_static/marimo/marimo-embed.css?v=9b78b0cf" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -42,7 +42,7 @@
     <script src="_static/documentation_options.js?v=01f34227"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/marimo/marimo-loader.js?v=34e6b176"></script>
+    <script src="_static/marimo/marimo-loader.js?v=3d033d2f"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -472,11 +472,15 @@
 <dl class="py data">
 <dt class="sig sig-object py" id="marimo_click_to_load">
 <span class="sig-name descname"><span class="pre">marimo_click_to_load</span></span><a class="headerlink" href="#marimo_click_to_load" title="Link to this definition">#</a></dt>
-<dd><p>Enable click-to-load feature for better performance. When enabled, notebooks show a
-“Load Interactive Notebook” button instead of loading immediately.</p>
+<dd><p>Control how notebooks are loaded. Options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code> - Notebooks load immediately (traditional behavior)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;overlay&quot;</span></code> - Full-height overlay with centered button</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;compact&quot;</span></code> - Space-saving button that expands when clicked</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
+<dd class="field-odd"><p>bool or str</p>
 </dd>
 <dt class="field-even">Default<span class="colon">:</span></dt>
 <dd class="field-even"><p>True</p>
@@ -541,9 +545,12 @@
 <dl class="rst directive:option">
 <dt class="sig sig-object rst" id="directive-option-marimo-click-to-load">
 <span class="sig-name descname"><span class="pre">:click-to-load:</span></span><em class="property"> <span class="pre">(string)</span></em><a class="headerlink" href="#directive-option-marimo-click-to-load" title="Link to this definition">#</a></dt>
-<dd><p>Override the global click-to-load setting for this specific notebook.
-Accepts “true”/”false”, “yes”/”no”, or “1”/”0”.
-When enabled, shows a button instead of loading immediately.</p>
+<dd><p>Override the global click-to-load setting for this specific notebook.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;false&quot;</span></code> - Load immediately</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;true&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;overlay&quot;</span></code> - Full-height overlay with button</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;compact&quot;</span></code> - Compact button that expands on click</p></li>
+</ul>
 </dd></dl>
 
 <dl class="rst directive:option">
@@ -561,15 +568,23 @@ Only used when click-to-load is true.</p>
    <span class="nc">:theme:</span> dark
 </pre></div>
 </div>
-<p>Override click-to-load for specific notebook:</p>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">marimo</span><span class="p">::</span> heavy_computation.py
-   <span class="nc">:height:</span> 600px
-   <span class="nc">:click-to-load:</span> true
-   <span class="nc">:load-button-text:</span> Click to load heavy computation
-
-<span class="p">..</span> <span class="ow">marimo</span><span class="p">::</span> lightweight_demo.py
+<p>Different click-to-load modes:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span># Immediate loading (no button)
+<span class="p">..</span> <span class="ow">marimo</span><span class="p">::</span> quick_demo.py
    <span class="nc">:height:</span> 400px
    <span class="nc">:click-to-load:</span> false
+
+# Full overlay with centered button
+<span class="p">..</span> <span class="ow">marimo</span><span class="p">::</span> analysis.py
+   <span class="nc">:height:</span> 600px
+   <span class="nc">:click-to-load:</span> overlay
+   <span class="nc">:load-button-text:</span> Start Analysis
+
+# Compact button that expands
+<span class="p">..</span> <span class="ow">marimo</span><span class="p">::</span> heavy_computation.py
+   <span class="nc">:height:</span> 800px
+   <span class="nc">:click-to-load:</span> compact
+   <span class="nc">:load-button-text:</span> Run Heavy Computation
 </pre></div>
 </div>
 </dd></dl>

@@ -3,23 +3,36 @@ Examples
 
 This page demonstrates various ways to embed Marimo notebooks in your documentation.
 
-Basic Example
--------------
+Click-to-Load Modes Demo
+-------------------------
 
-A simple interactive notebook with UI components. This uses the default click-to-load behavior:
+Compact Mode (Space-Saving)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This notebook uses compact mode - just a small button that expands when clicked:
 
 .. marimo:: example.py
    :height: 700px
-   :load-button-text: Click to load interactive demo
+   :click-to-load: compact
+   :load-button-text: Click to expand and run demo
 
-Data Analysis Example
----------------------
+Overlay Mode (Full Height)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A more complex notebook showing data analysis capabilities with click-to-load disabled for immediate interaction:
+This notebook shows a full-height overlay with a centered button:
 
 .. marimo:: data_analysis.py
-   :height: 800px
-   :width: 100%
+   :height: 600px
+   :click-to-load: overlay
+   :load-button-text: Load Data Analysis
+
+Immediate Loading
+~~~~~~~~~~~~~~~~~~
+
+This notebook loads immediately without any button:
+
+.. marimo:: example.py
+   :height: 400px
    :click-to-load: false
 
 Configuration
@@ -56,25 +69,34 @@ The ``marimo`` directive supports several options:
 
 * ``height``: Set the iframe height (default: 600px)
 * ``width``: Set the iframe width (default: 100%)
-* ``click-to-load``: Override global click-to-load setting (true/false)
+* ``click-to-load``: Control loading behavior:
+
+  - ``false`` - Load immediately
+  - ``overlay`` - Full-height overlay with button (default)
+  - ``compact`` - Small button that expands on click
+
 * ``load-button-text``: Custom text for the load button
 
-Example:
+Examples:
 
 .. code-block:: rst
 
-   .. marimo:: notebook.py
+   # Compact mode - saves screen space
+   .. marimo:: notebook1.py
       :height: 800px
-      :width: 90%
+      :click-to-load: compact
+      :load-button-text: Expand to run notebook
 
-   # Force immediate loading for this notebook
-   .. marimo:: quick_demo.py
+   # Overlay mode - shows button in center
+   .. marimo:: notebook2.py
+      :height: 600px
+      :click-to-load: overlay
+      :load-button-text: Load Interactive Demo
+
+   # Immediate loading - no button
+   .. marimo:: notebook3.py
+      :height: 400px
       :click-to-load: false
-
-   # Force click-to-load with custom button text
-   .. marimo:: expensive_analysis.py
-      :click-to-load: true
-      :load-button-text: Start Analysis
 
 Tips for Creating Notebooks
 ----------------------------

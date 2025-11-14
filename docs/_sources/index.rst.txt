@@ -73,8 +73,8 @@ Add the extension to your ``conf.py``:
    marimo_n_jobs = -1                  # Number of parallel jobs (-1 = auto-detect CPU cores)
    marimo_cache_notebooks = True       # Enable caching to speed up repeated builds
 
-   # Click-to-load configuration
-   marimo_click_to_load = True        # Enable click-to-load feature
+   # Click-to-load configuration (multiple modes available)
+   marimo_click_to_load = True        # Options: False, True/"overlay", "compact"
    marimo_load_button_text = "Load Interactive Notebook"
 
 Usage

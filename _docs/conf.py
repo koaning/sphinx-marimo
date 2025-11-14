@@ -37,7 +37,7 @@ marimo_n_jobs = -1               # Number of parallel jobs (-1 = auto-detect CPU
 marimo_cache_notebooks = True    # Enable caching to speed up repeated builds
 
 # Click-to-load configuration
-marimo_click_to_load = True           # Enable click-to-load for better performance
+marimo_click_to_load = True           # Options: False, True/"overlay", "compact"
 marimo_load_button_text = "Load Interactive Notebook"
 
 html_theme_options = {

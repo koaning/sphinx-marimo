@@ -53,6 +53,38 @@
     font-size: 14px;
 }
 
+/* Compact mode styles */
+.marimo-compact {
+    min-height: auto !important;
+    height: auto !important;
+}
+
+.marimo-compact-button {
+    transition: all 0.3s ease;
+}
+
+.marimo-compact-button:hover {
+    background: #e9ecef !important;
+}
+
+.marimo-compact-button .marimo-notebook-title {
+    transition: opacity 0.3s ease;
+}
+
+.marimo-compact.marimo-loading-notebook .marimo-compact-button {
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.marimo-expanding {
+    animation: pulse 0.6s ease;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.98); }
+}
+
 /* Click-to-load styles */
 .marimo-click-overlay {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);

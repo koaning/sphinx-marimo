@@ -62,43 +62,52 @@ def __(mo):
 
 ## Click-to-Load Feature
 
-Marimo notebooks use WASM which can be compute-intensive. By default, notebooks only load when clicked to improve performance:
+Marimo notebooks use WASM which can be compute-intensive. The extension offers multiple loading modes to optimize performance and user experience:
+
+### Loading Modes
 
 ```python
 # In conf.py
-marimo_click_to_load = True  # Enable click-to-load (default)
+marimo_click_to_load = True  # Can be: False, True/"overlay", or "compact"
 marimo_load_button_text = "Load Interactive Notebook"  # Customize button text
 ```
 
-When `marimo_click_to_load` is enabled:
-- Notebooks show a "Load Interactive Notebook" button instead of loading immediately
-- Users click the button to start loading the WASM notebook
-- This significantly improves page load times, especially on mobile devices
-- Reduces bandwidth usage for users who don't interact with every notebook
+#### Available Modes:
+
+1. **Immediate Loading** (`False`) - Traditional behavior, notebooks load immediately
+2. **Overlay Mode** (`True` or `"overlay"`) - Full-height overlay with centered button (default)
+3. **Compact Mode** (`"compact"`) - Space-saving button that expands when clicked
 
 ### Per-Notebook Configuration
 
-You can override the global setting for individual notebooks:
+Override the global setting for individual notebooks:
 
 ```rst
+# Compact mode - saves screen space
 .. marimo:: heavy_computation.py
-   :click-to-load: true
-   :load-button-text: Click to start heavy computation
+   :click-to-load: compact
+   :load-button-text: Run Analysis
 
-.. marimo:: lightweight_demo.py
+# Overlay mode - full height with centered button
+.. marimo:: demo.py
+   :click-to-load: overlay
+   :load-button-text: Start Demo
+
+# Immediate loading - no button
+.. marimo:: quick_example.py
    :click-to-load: false
 ```
 
-This is useful when you want:
-- Some notebooks to load immediately (e.g., simple demos)
-- Others to wait for user interaction (e.g., heavy computations)
-- Custom button text for specific notebooks
+### Use Cases:
 
-To disable click-to-load globally:
+- **Compact mode**: Perfect for documentation with multiple notebooks on one page
+- **Overlay mode**: Best for standalone demos where the notebook is the focus
+- **Immediate loading**: Ideal for lightweight, essential notebooks
 
-```python
-marimo_click_to_load = False
-```
+This flexibility allows you to optimize for:
+- Better page load times on mobile devices
+- Reduced bandwidth for users who don't interact with every notebook
+- Improved user experience with progressive disclosure
 
 ## Architecture
 

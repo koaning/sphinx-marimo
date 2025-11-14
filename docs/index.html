@@ -31,7 +31,7 @@
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="_static/marimo/marimo-embed.css?v=c7ee1c65" />
+    <link rel="stylesheet" type="text/css" href="_static/marimo/marimo-embed.css?v=9b78b0cf" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -42,7 +42,7 @@
     <script src="_static/documentation_options.js?v=01f34227"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/marimo/marimo-loader.js?v=34e6b176"></script>
+    <script src="_static/marimo/marimo-loader.js?v=3d033d2f"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -340,8 +340,7 @@ interactive Marimo notebooks directly in your Sphinx documentation.</p>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#basic-example">Basic Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#data-analysis-example">Data Analysis Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#click-to-load-modes-demo">Click-to-Load Modes Demo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#directive-options">Directive Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#tips-for-creating-notebooks">Tips for Creating Notebooks</a></li>
@@ -429,8 +428,8 @@ requiring a server.</p>
 <span class="n">marimo_n_jobs</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>                  <span class="c1"># Number of parallel jobs (-1 = auto-detect CPU cores)</span>
 <span class="n">marimo_cache_notebooks</span> <span class="o">=</span> <span class="kc">True</span>       <span class="c1"># Enable caching to speed up repeated builds</span>
 
-<span class="c1"># Click-to-load configuration</span>
-<span class="n">marimo_click_to_load</span> <span class="o">=</span> <span class="kc">True</span>        <span class="c1"># Enable click-to-load feature</span>
+<span class="c1"># Click-to-load configuration (multiple modes available)</span>
+<span class="n">marimo_click_to_load</span> <span class="o">=</span> <span class="kc">True</span>        <span class="c1"># Options: False, True/&quot;overlay&quot;, &quot;compact&quot;</span>
 <span class="n">marimo_load_button_text</span> <span class="o">=</span> <span class="s2">&quot;Load Interactive Notebook&quot;</span>
 </pre></div>
 </div>
