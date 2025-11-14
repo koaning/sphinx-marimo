@@ -112,7 +112,22 @@ Directive
 
       Theme for the notebook ("light", "dark", or "auto")
 
-   **Example:**
+   .. rst:directive:option:: click-to-load
+      :type: string
+
+      Override the global click-to-load setting for this specific notebook.
+      Accepts "true"/"false", "yes"/"no", or "1"/"0".
+      When enabled, shows a button instead of loading immediately.
+
+   .. rst:directive:option:: load-button-text
+      :type: string
+
+      Override the button text shown when click-to-load is enabled for this notebook.
+      Only used when click-to-load is true.
+
+   **Examples:**
+
+   Basic usage:
 
    .. code-block:: rst
 
@@ -120,3 +135,16 @@ Directive
          :height: 800px
          :width: 90%
          :theme: dark
+
+   Override click-to-load for specific notebook:
+
+   .. code-block:: rst
+
+      .. marimo:: heavy_computation.py
+         :height: 600px
+         :click-to-load: true
+         :load-button-text: Click to load heavy computation
+
+      .. marimo:: lightweight_demo.py
+         :height: 400px
+         :click-to-load: false

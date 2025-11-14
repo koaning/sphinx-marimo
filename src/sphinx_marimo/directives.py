@@ -12,6 +12,8 @@ class MarimoDirective(SphinxDirective):
         "width": directives.unchanged,
         "class": directives.unchanged,
         "theme": directives.unchanged,
+        "click-to-load": directives.unchanged,
+        "load-button-text": directives.unchanged,
     }
 
     def run(self):
@@ -35,9 +37,23 @@ class MarimoDirective(SphinxDirective):
             prefix = './'
         static_path = prefix + '_static/marimo/notebooks/' + notebook_name + '.html'
 
-        # Check if click-to-load is enabled
-        click_to_load = getattr(self.config, 'marimo_click_to_load', True)
-        button_text = getattr(self.config, 'marimo_load_button_text', 'Load Interactive Notebook')
+        # Check if click-to-load is enabled (per-directive setting overrides global)
+        global_click_to_load = getattr(self.config, 'marimo_click_to_load', True)
+
+        # Handle per-directive click-to-load option
+        if "click-to-load" in self.options:
+            # Parse the directive option (accept 'true', 'false', 'yes', 'no', '1', '0')
+            click_to_load_str = self.options["click-to-load"].lower()
+            click_to_load = click_to_load_str in ('true', 'yes', '1')
+        else:
+            # Use global setting if no directive option is provided
+            click_to_load = global_click_to_load
+
+        # Get button text (per-directive setting overrides global)
+        button_text = self.options.get(
+            "load-button-text",
+            getattr(self.config, 'marimo_load_button_text', 'Load Interactive Notebook')
+        )
 
         if click_to_load:
             # Create container with click-to-load overlay

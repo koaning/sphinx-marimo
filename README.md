@@ -76,7 +76,25 @@ When `marimo_click_to_load` is enabled:
 - This significantly improves page load times, especially on mobile devices
 - Reduces bandwidth usage for users who don't interact with every notebook
 
-To disable click-to-load and revert to immediate loading:
+### Per-Notebook Configuration
+
+You can override the global setting for individual notebooks:
+
+```rst
+.. marimo:: heavy_computation.py
+   :click-to-load: true
+   :load-button-text: Click to start heavy computation
+
+.. marimo:: lightweight_demo.py
+   :click-to-load: false
+```
+
+This is useful when you want:
+- Some notebooks to load immediately (e.g., simple demos)
+- Others to wait for user interaction (e.g., heavy computations)
+- Custom button text for specific notebooks
+
+To disable click-to-load globally:
 
 ```python
 marimo_click_to_load = False

@@ -6,19 +6,21 @@ This page demonstrates various ways to embed Marimo notebooks in your documentat
 Basic Example
 -------------
 
-A simple interactive notebook with UI components:
+A simple interactive notebook with UI components. This uses the default click-to-load behavior:
 
 .. marimo:: example.py
    :height: 700px
+   :load-button-text: Click to load interactive demo
 
 Data Analysis Example
 ---------------------
 
-A more complex notebook showing data analysis capabilities:
+A more complex notebook showing data analysis capabilities with click-to-load disabled for immediate interaction:
 
 .. marimo:: data_analysis.py
    :height: 800px
    :width: 100%
+   :click-to-load: false
 
 Configuration
 -------------
@@ -54,6 +56,8 @@ The ``marimo`` directive supports several options:
 
 * ``height``: Set the iframe height (default: 600px)
 * ``width``: Set the iframe width (default: 100%)
+* ``click-to-load``: Override global click-to-load setting (true/false)
+* ``load-button-text``: Custom text for the load button
 
 Example:
 
@@ -62,6 +66,15 @@ Example:
    .. marimo:: notebook.py
       :height: 800px
       :width: 90%
+
+   # Force immediate loading for this notebook
+   .. marimo:: quick_demo.py
+      :click-to-load: false
+
+   # Force click-to-load with custom button text
+   .. marimo:: expensive_analysis.py
+      :click-to-load: true
+      :load-button-text: Start Analysis
 
 Tips for Creating Notebooks
 ----------------------------

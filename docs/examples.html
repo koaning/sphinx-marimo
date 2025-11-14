@@ -369,13 +369,13 @@
 <p>This page demonstrates various ways to embed Marimo notebooks in your documentation.</p>
 <section id="basic-example">
 <h2>Basic Example<a class="headerlink" href="#basic-example" title="Link to this heading">#</a></h2>
-<p>A simple interactive notebook with UI components:</p>
+<p>A simple interactive notebook with UI components. This uses the default click-to-load behavior:</p>
 
 <div class="marimo-embed" id="marimo-example-0" data-notebook="example" data-theme="light" data-notebook-path="./_static/marimo/notebooks/example.html" style="position: relative; width: 100%; height: 700px;">
     <div class="marimo-click-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 4px; cursor: pointer; z-index: 10;">
         <button class="marimo-load-button" style="padding: 12px 24px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
             <span style="margin-right: 8px;">▶</span>
-            Load Interactive Notebook
+            Click to load interactive demo
         </button>
     </div>
     <iframe
@@ -396,27 +396,26 @@
 </section>
 <section id="data-analysis-example">
 <h2>Data Analysis Example<a class="headerlink" href="#data-analysis-example" title="Link to this heading">#</a></h2>
-<p>A more complex notebook showing data analysis capabilities:</p>
+<p>A more complex notebook showing data analysis capabilities with click-to-load disabled for immediate interaction:</p>
 
-<div class="marimo-embed" id="marimo-data_analysis-1" data-notebook="data_analysis" data-theme="light" data-notebook-path="./_static/marimo/notebooks/data_analysis.html" style="position: relative; width: 100%; height: 800px;">
-    <div class="marimo-click-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 4px; cursor: pointer; z-index: 10;">
-        <button class="marimo-load-button" style="padding: 12px 24px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
-            <span style="margin-right: 8px;">▶</span>
-            Load Interactive Notebook
-        </button>
-    </div>
+<div class="marimo-embed" id="marimo-data_analysis-1" data-notebook="data_analysis" data-theme="light" data-notebook-path="./_static/marimo/notebooks/data_analysis.html">
     <iframe
         data-src="./_static/marimo/notebooks/data_analysis.html"
-        style="width: 100%; height: 100%; border: 1px solid #e0e0e0; border-radius: 4px; display: none;"
+        style="width: 100%; height: 800px; border: 1px solid #e0e0e0; border-radius: 4px;"
         frameborder="0"
+        loading="lazy"
         allow="fullscreen">
     </iframe>
 </div>
 <script>
     (function() {
         const container = document.getElementById('marimo-data_analysis-1');
+        const iframe = container.querySelector('iframe');
+        const src = iframe.getAttribute('data-src');
+        iframe.setAttribute('src', src);
+
         if (window.MarimoLoader) {
-            window.MarimoLoader.setupClickToLoad(container, 'data_analysis');
+            window.MarimoLoader.load(container, 'data_analysis');
         }
     })();
 </script>
@@ -452,11 +451,22 @@
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">height</span></code>: Set the iframe height (default: 600px)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">width</span></code>: Set the iframe width (default: 100%)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">click-to-load</span></code>: Override global click-to-load setting (true/false)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">load-button-text</span></code>: Custom text for the load button</p></li>
 </ul>
 <p>Example:</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">marimo</span><span class="p">::</span> notebook.py
    <span class="nc">:height:</span> 800px
    <span class="nc">:width:</span> 90%
+
+# Force immediate loading for this notebook
+<span class="p">..</span> <span class="ow">marimo</span><span class="p">::</span> quick_demo.py
+   <span class="nc">:click-to-load:</span> false
+
+# Force click-to-load with custom button text
+<span class="p">..</span> <span class="ow">marimo</span><span class="p">::</span> expensive_analysis.py
+   <span class="nc">:click-to-load:</span> true
+   <span class="nc">:load-button-text:</span> Start Analysis
 </pre></div>
 </div>
 </section>
