@@ -28,7 +28,6 @@ To use sphinx-marimo in your documentation, add it to your ``conf.py``:
 .. code-block:: python
 
    extensions = [
-       'sphinx_gallery.gen_gallery',  # Must come before sphinx_marimo
        'sphinx_marimo',
    ]
 
@@ -44,15 +43,9 @@ To use sphinx-marimo in your documentation, add it to your ``conf.py``:
    marimo_n_jobs = -1                        # Number of parallel jobs (-1 = auto-detect CPU cores)
    marimo_cache_notebooks = True             # Enable caching to speed up repeated builds
 
-   # Sphinx Gallery integration
-   sphinx_gallery_conf = {
-       'examples_dirs': '../gallery_examples',
-       'gallery_dirs': 'auto_examples',
-       'filename_pattern': r'/plot_.*\.py$',
-   }
-
-   # Marimo Gallery integration
-   marimo_gallery_button_text = 'launch marimo'  # Button text in gallery examples
+   # Click-to-load configuration
+   marimo_click_to_load = True               # Enable click-to-load for better performance
+   marimo_load_button_text = 'Load Interactive Notebook'  # Button text
 
 Directive Options
 -----------------

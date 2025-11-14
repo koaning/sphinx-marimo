@@ -8,11 +8,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <script>
-        var marimo_show_footer_button = true;
-        var marimo_show_sidebar_button = true;
-    </script>
-    
     <title>API Reference &#8212; Sphinx-Marimo 0.1.0 documentation</title>
   
   
@@ -36,14 +31,7 @@
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
-    <link rel="stylesheet" type="text/css" href="_static/jupyterlite_sphinx.css?v=8ee2c72c" />
-    <link rel="stylesheet" type="text/css" href="_static/marimo/marimo-embed.css?v=d2b2e6da" />
-    <link rel="stylesheet" type="text/css" href="_static/marimo/gallery-launcher.css?v=dea9504a" />
-    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
-    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
-    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
-    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="_static/marimo/marimo-embed.css?v=c7ee1c65" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -54,13 +42,11 @@
     <script src="_static/documentation_options.js?v=01f34227"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/jupyterlite_sphinx.js?v=96e329c5"></script>
-    <script src="_static/marimo/marimo-loader.js?v=5ab75c7a"></script>
-    <script src="_static/marimo/gallery-launcher.js?v=1e80898e"></script>
+    <script src="_static/marimo/marimo-loader.js?v=34e6b176"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Machine Learning Visualization" href="auto_examples/plot_machine_learning_demo.html" />
+    <link rel="prev" title="Examples" href="examples.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -125,7 +111,7 @@
   
   
   
-    <p class="title logo__title">🖼️ Sphinx-Gallery</p>
+    <p class="title logo__title">📊 Sphinx-Marimo</p>
   
 </a></div>
     
@@ -142,13 +128,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="examples.html">
     Examples
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="gallery.html">
-    Gallery Examples
   </a>
 </li>
 
@@ -197,7 +176,7 @@
           
           
           
-          <a href="https://github.com/sphinx-gallery/sphinx-gallery" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/koaning/sphinx-marimo" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -209,7 +188,7 @@
           
           
           
-          <a href="https://pypi.org/project/sphinx-gallery" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
+          <a href="https://pypi.org/project/sphinx-marimo" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
             <span class="sr-only">PyPI</span></a>
         </li>
 </ul></div>
@@ -267,13 +246,6 @@
 </li>
 
 
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="gallery.html">
-    Gallery Examples
-  </a>
-</li>
-
-
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="#">
     API Reference
@@ -309,7 +281,7 @@
           
           
           
-          <a href="https://github.com/sphinx-gallery/sphinx-gallery" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/koaning/sphinx-marimo" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -321,7 +293,7 @@
           
           
           
-          <a href="https://pypi.org/project/sphinx-gallery" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
+          <a href="https://pypi.org/project/sphinx-marimo" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
             <span class="sr-only">PyPI</span></a>
         </li>
 </ul></div>
@@ -495,46 +467,33 @@
 </dd></dl>
 
 </section>
-<section id="gallery-integration-configuration">
-<h2>Gallery Integration Configuration<a class="headerlink" href="#gallery-integration-configuration" title="Link to this heading">#</a></h2>
+<section id="click-to-load-configuration">
+<h2>Click-to-Load Configuration<a class="headerlink" href="#click-to-load-configuration" title="Link to this heading">#</a></h2>
 <dl class="py data">
-<dt class="sig sig-object py" id="marimo_gallery_button_text">
-<span class="sig-name descname"><span class="pre">marimo_gallery_button_text</span></span><a class="headerlink" href="#marimo_gallery_button_text" title="Link to this definition">#</a></dt>
-<dd><p>Text to display on the Marimo launcher button in Sphinx Gallery pages.</p>
+<dt class="sig sig-object py" id="marimo_click_to_load">
+<span class="sig-name descname"><span class="pre">marimo_click_to_load</span></span><a class="headerlink" href="#marimo_click_to_load" title="Link to this definition">#</a></dt>
+<dd><p>Enable click-to-load feature for better performance. When enabled, notebooks show a
+“Load Interactive Notebook” button instead of loading immediately.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+<dt class="field-even">Default<span class="colon">:</span></dt>
+<dd class="field-even"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="marimo_load_button_text">
+<span class="sig-name descname"><span class="pre">marimo_load_button_text</span></span><a class="headerlink" href="#marimo_load_button_text" title="Link to this definition">#</a></dt>
+<dd><p>Text to display on the load button when click-to-load is enabled.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 <dt class="field-even">Default<span class="colon">:</span></dt>
-<dd class="field-even"><p>“launch marimo”</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="marimo_show_footer_button">
-<span class="sig-name descname"><span class="pre">marimo_show_footer_button</span></span><a class="headerlink" href="#marimo_show_footer_button" title="Link to this definition">#</a></dt>
-<dd><p>Whether to show the Marimo download button in the footer of Gallery example pages.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-<dt class="field-even">Default<span class="colon">:</span></dt>
-<dd class="field-even"><p>True</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="marimo_show_sidebar_button">
-<span class="sig-name descname"><span class="pre">marimo_show_sidebar_button</span></span><a class="headerlink" href="#marimo_show_sidebar_button" title="Link to this definition">#</a></dt>
-<dd><p>Whether to show the Marimo launch button in the right sidebar of Gallery example pages.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-<dt class="field-even">Default<span class="colon">:</span></dt>
-<dd class="field-even"><p>True</p>
+<dd class="field-even"><p>“Load Interactive Notebook”</p>
 </dd>
 </dl>
 </dd></dl>
@@ -602,12 +561,12 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="auto_examples/plot_machine_learning_demo.html"
+       href="examples.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Machine Learning Visualization</p>
+        <p class="prev-next-title">Examples</p>
       </div>
     </a>
 </div>
@@ -641,10 +600,9 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marimo_default_width"><code class="docutils literal notranslate"><span class="pre">marimo_default_width</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gallery-integration-configuration">Gallery Integration Configuration</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marimo_gallery_button_text"><code class="docutils literal notranslate"><span class="pre">marimo_gallery_button_text</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marimo_show_footer_button"><code class="docutils literal notranslate"><span class="pre">marimo_show_footer_button</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marimo_show_sidebar_button"><code class="docutils literal notranslate"><span class="pre">marimo_show_sidebar_button</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#click-to-load-configuration">Click-to-Load Configuration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marimo_click_to_load"><code class="docutils literal notranslate"><span class="pre">marimo_click_to_load</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marimo_load_button_text"><code class="docutils literal notranslate"><span class="pre">marimo_load_button_text</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directive">Directive</a><ul class="visible nav section-nav flex-column">

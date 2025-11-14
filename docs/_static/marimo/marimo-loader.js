@@ -64,6 +64,81 @@
             });
         },
 
+        setupClickToLoad: function(container, notebookName) {
+            if (this.loadedNotebooks.has(notebookName)) {
+                return;
+            }
+
+            const overlay = container.querySelector('.marimo-click-overlay');
+            const iframe = container.querySelector('iframe');
+
+            if (!overlay || !iframe) {
+                console.error('Missing overlay or iframe for click-to-load:', notebookName);
+                return;
+            }
+
+            // Add click handler to overlay
+            overlay.addEventListener('click', () => {
+                // Add loading state
+                container.classList.add('marimo-loading-notebook');
+
+                // Update button text to show loading
+                const button = overlay.querySelector('.marimo-load-button');
+                if (button) {
+                    button.innerHTML = 'Loading...';
+                }
+
+                // Set iframe src and start loading
+                const src = iframe.getAttribute('data-src');
+                iframe.setAttribute('src', src);
+
+                // Handle successful load
+                iframe.addEventListener('load', () => {
+                    // Hide overlay and show iframe
+                    overlay.style.display = 'none';
+                    iframe.style.display = 'block';
+
+                    // Remove loading state
+                    container.classList.remove('marimo-loading-notebook');
+
+                    // Mark as loaded
+                    this.loadedNotebooks.add(notebookName);
+
+                    // Initialize notebook
+                    this.initializeNotebook(iframe, notebookName);
+                }, { once: true });
+
+                // Handle load error
+                iframe.addEventListener('error', () => {
+                    // Remove loading state
+                    container.classList.remove('marimo-loading-notebook');
+
+                    // Show error message in overlay
+                    overlay.innerHTML = `
+                        <div class="marimo-error" style="padding: 1rem; text-align: center;">
+                            <strong>Failed to load notebook</strong><br>
+                            <small>${notebookName}</small><br>
+                            <button onclick="location.reload()" style="margin-top: 10px; padding: 5px 10px;">
+                                Reload Page
+                            </button>
+                        </div>
+                    `;
+                }, { once: true });
+            });
+
+            // Add keyboard accessibility
+            overlay.setAttribute('tabindex', '0');
+            overlay.setAttribute('role', 'button');
+            overlay.setAttribute('aria-label', 'Load interactive Marimo notebook');
+
+            overlay.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    overlay.click();
+                }
+            });
+        },
+
         loadManifest: function() {
             // Load notebook manifest for validation
             fetch('/_static/marimo/manifest.json')

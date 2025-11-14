@@ -60,34 +60,27 @@ def __(mo):
    :width: 100%
 ```
 
-## Sphinx Gallery Integration
+## Click-to-Load Feature
 
-The extension automatically detects Sphinx Gallery and adds "launch marimo" buttons:
+Marimo notebooks use WASM which can be compute-intensive. By default, notebooks only load when clicked to improve performance:
 
 ```python
 # In conf.py
-extensions = [
-    'sphinx_gallery.gen_gallery',  # Must come before sphinx_marimo
-    'sphinx_marimo',
-]
-
-sphinx_gallery_conf = {
-    'examples_dirs': '../gallery_examples',
-    'gallery_dirs': 'auto_examples',
-}
-
-# Control button visibility
-marimo_show_footer_button = True
-marimo_show_sidebar_button = True
-
-# Transform converted notebooks (optional)
-marimo_prepend_markdown = """
-⚠️ **Note**: This notebook was automatically converted from Jupyter.
-"""
-marimo_move_imports_to_top = True  # Ensure imports run first
+marimo_click_to_load = True  # Enable click-to-load (default)
+marimo_load_button_text = "Load Interactive Notebook"  # Customize button text
 ```
 
-Gallery examples will automatically include "launch marimo" buttons alongside existing Binder/JupyterLite buttons.
+When `marimo_click_to_load` is enabled:
+- Notebooks show a "Load Interactive Notebook" button instead of loading immediately
+- Users click the button to start loading the WASM notebook
+- This significantly improves page load times, especially on mobile devices
+- Reduces bandwidth usage for users who don't interact with every notebook
+
+To disable click-to-load and revert to immediate loading:
+
+```python
+marimo_click_to_load = False
+```
 
 ## Architecture
 
@@ -95,8 +88,7 @@ The extension works by:
 
 1. **Build Phase**: Converting Marimo `.py` notebooks to WASM during Sphinx build
 2. **Runtime**: Serving notebooks as static files that run in the browser
-3. **Gallery Integration**: Converting Gallery-generated `.ipynb` files to Marimo WASM
-4. **UI Integration**: Injecting launcher buttons into Gallery pages
+3. **Click-to-Load**: Deferring notebook loading until user interaction for better performance
 
 ## Examples
 
@@ -107,7 +99,6 @@ See the [documentation](https://your-docs-url.com) for live examples and full us
 - Python 3.8+
 - Sphinx 4.0+
 - Marimo 0.1.0+
-- For Gallery integration: sphinx-gallery 0.10+
 
 ## Development
 

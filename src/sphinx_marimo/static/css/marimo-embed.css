@@ -53,8 +53,76 @@
     font-size: 14px;
 }
 
+/* Click-to-load styles */
+.marimo-click-overlay {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    transition: background 0.3s ease;
+}
+
+.marimo-click-overlay:hover {
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+}
+
+.marimo-load-button {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.marimo-load-button:hover {
+    background: #0056b3 !important;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.marimo-load-button:active {
+    transform: translateY(0);
+}
+
+/* Loading state for click-to-load */
+.marimo-embed.marimo-loading-notebook .marimo-click-overlay {
+    pointer-events: none;
+}
+
+.marimo-embed.marimo-loading-notebook .marimo-load-button {
+    opacity: 0.7;
+}
+
+.marimo-embed.marimo-loading-notebook .marimo-load-button::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: marimo-spin 1s linear infinite;
+    vertical-align: middle;
+}
+
+.marimo-embed.marimo-loading-notebook .marimo-load-button span {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .marimo-load-button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
 @media (prefers-color-scheme: dark) {
     .marimo-embed[data-theme="auto"] iframe {
         background: #1a1a1a;
+    }
+
+    .marimo-click-overlay {
+        background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+    }
+
+    .marimo-click-overlay:hover {
+        background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
     }
 }

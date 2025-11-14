@@ -35,9 +35,39 @@ class MarimoDirective(SphinxDirective):
             prefix = './'
         static_path = prefix + '_static/marimo/notebooks/' + notebook_name + '.html'
 
-        # Use data attribute to store path and let JavaScript handle it
-        # This avoids Sphinx's post-processing of src attributes
-        html = f"""
+        # Check if click-to-load is enabled
+        click_to_load = getattr(self.config, 'marimo_click_to_load', True)
+        button_text = getattr(self.config, 'marimo_load_button_text', 'Load Interactive Notebook')
+
+        if click_to_load:
+            # Create container with click-to-load overlay
+            html = f"""
+<div class="{css_class}" id="{container_id}" data-notebook="{notebook_name}" data-theme="{theme}" data-notebook-path="{static_path}" style="position: relative; width: {width}; height: {height};">
+    <div class="marimo-click-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 4px; cursor: pointer; z-index: 10;">
+        <button class="marimo-load-button" style="padding: 12px 24px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            <span style="margin-right: 8px;">▶</span>
+            {button_text}
+        </button>
+    </div>
+    <iframe
+        data-src="{static_path}"
+        style="width: 100%; height: 100%; border: 1px solid #e0e0e0; border-radius: 4px; display: none;"
+        frameborder="0"
+        allow="fullscreen">
+    </iframe>
+</div>
+<script>
+    (function() {{
+        const container = document.getElementById('{container_id}');
+        if (window.MarimoLoader) {{
+            window.MarimoLoader.setupClickToLoad(container, '{notebook_name}');
+        }}
+    }})();
+</script>
+"""
+        else:
+            # Original immediate loading behavior
+            html = f"""
 <div class="{css_class}" id="{container_id}" data-notebook="{notebook_name}" data-theme="{theme}" data-notebook-path="{static_path}">
     <iframe
         data-src="{static_path}"
