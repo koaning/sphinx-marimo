@@ -3,22 +3,37 @@ Examples
 
 This page demonstrates various ways to embed Marimo notebooks in your documentation.
 
-Basic Example
--------------
+Click-to-Load Modes Demo
+-------------------------
 
-A simple interactive notebook with UI components:
+Compact Mode (Space-Saving)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This notebook uses compact mode - just a small button that expands when clicked:
 
 .. marimo:: example.py
    :height: 700px
+   :click-to-load: compact
+   :load-button-text: Click to expand and run demo
 
-Data Analysis Example
----------------------
+Overlay Mode (Full Height)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A more complex notebook showing data analysis capabilities:
+This notebook shows a full-height overlay with a centered button:
 
 .. marimo:: data_analysis.py
-   :height: 800px
-   :width: 100%
+   :height: 600px
+   :click-to-load: overlay
+   :load-button-text: Load Data Analysis
+
+Immediate Loading
+~~~~~~~~~~~~~~~~~~
+
+This notebook loads immediately without any button:
+
+.. marimo:: example.py
+   :height: 400px
+   :click-to-load: false
 
 Configuration
 -------------
@@ -28,7 +43,6 @@ To use sphinx-marimo in your documentation, add it to your ``conf.py``:
 .. code-block:: python
 
    extensions = [
-       'sphinx_gallery.gen_gallery',  # Must come before sphinx_marimo
        'sphinx_marimo',
    ]
 
@@ -44,15 +58,9 @@ To use sphinx-marimo in your documentation, add it to your ``conf.py``:
    marimo_n_jobs = -1                        # Number of parallel jobs (-1 = auto-detect CPU cores)
    marimo_cache_notebooks = True             # Enable caching to speed up repeated builds
 
-   # Sphinx Gallery integration
-   sphinx_gallery_conf = {
-       'examples_dirs': '../gallery_examples',
-       'gallery_dirs': 'auto_examples',
-       'filename_pattern': r'/plot_.*\.py$',
-   }
-
-   # Marimo Gallery integration
-   marimo_gallery_button_text = 'launch marimo'  # Button text in gallery examples
+   # Click-to-load configuration
+   marimo_click_to_load = True               # Enable click-to-load for better performance
+   marimo_load_button_text = 'Load Interactive Notebook'  # Button text
 
 Directive Options
 -----------------
@@ -61,14 +69,34 @@ The ``marimo`` directive supports several options:
 
 * ``height``: Set the iframe height (default: 600px)
 * ``width``: Set the iframe width (default: 100%)
+* ``click-to-load``: Control loading behavior:
 
-Example:
+  - ``false`` - Load immediately
+  - ``overlay`` - Full-height overlay with button (default)
+  - ``compact`` - Small button that expands on click
+
+* ``load-button-text``: Custom text for the load button
+
+Examples:
 
 .. code-block:: rst
 
-   .. marimo:: notebook.py
+   # Compact mode - saves screen space
+   .. marimo:: notebook1.py
       :height: 800px
-      :width: 90%
+      :click-to-load: compact
+      :load-button-text: Expand to run notebook
+
+   # Overlay mode - shows button in center
+   .. marimo:: notebook2.py
+      :height: 600px
+      :click-to-load: overlay
+      :load-button-text: Load Interactive Demo
+
+   # Immediate loading - no button
+   .. marimo:: notebook3.py
+      :height: 400px
+      :click-to-load: false
 
 Tips for Creating Notebooks
 ----------------------------

@@ -62,29 +62,26 @@ The following configuration values can be set in ``conf.py``:
    :type: str
    :default: "100%"
 
-Gallery Integration Configuration
-----------------------------------
+Click-to-Load Configuration
+----------------------------
 
-.. py:data:: marimo_gallery_button_text
+.. py:data:: marimo_click_to_load
 
-   Text to display on the Marimo launcher button in Sphinx Gallery pages.
+   Control how notebooks are loaded. Options:
+
+   * ``False`` - Notebooks load immediately (traditional behavior)
+   * ``True`` or ``"overlay"`` - Full-height overlay with centered button
+   * ``"compact"`` - Space-saving button that expands when clicked
+
+   :type: bool or str
+   :default: True
+
+.. py:data:: marimo_load_button_text
+
+   Text to display on the load button when click-to-load is enabled.
 
    :type: str
-   :default: "launch marimo"
-
-.. py:data:: marimo_show_footer_button
-
-   Whether to show the Marimo download button in the footer of Gallery example pages.
-
-   :type: bool
-   :default: True
-
-.. py:data:: marimo_show_sidebar_button
-
-   Whether to show the Marimo launch button in the right sidebar of Gallery example pages.
-
-   :type: bool
-   :default: True
+   :default: "Load Interactive Notebook"
 
 Directive
 ---------
@@ -118,7 +115,24 @@ Directive
 
       Theme for the notebook ("light", "dark", or "auto")
 
-   **Example:**
+   .. rst:directive:option:: click-to-load
+      :type: string
+
+      Override the global click-to-load setting for this specific notebook.
+
+      * ``"false"`` - Load immediately
+      * ``"true"`` or ``"overlay"`` - Full-height overlay with button
+      * ``"compact"`` - Compact button that expands on click
+
+   .. rst:directive:option:: load-button-text
+      :type: string
+
+      Override the button text shown when click-to-load is enabled for this notebook.
+      Only used when click-to-load is true.
+
+   **Examples:**
+
+   Basic usage:
 
    .. code-block:: rst
 
@@ -126,3 +140,24 @@ Directive
          :height: 800px
          :width: 90%
          :theme: dark
+
+   Different click-to-load modes:
+
+   .. code-block:: rst
+
+      # Immediate loading (no button)
+      .. marimo:: quick_demo.py
+         :height: 400px
+         :click-to-load: false
+
+      # Full overlay with centered button
+      .. marimo:: analysis.py
+         :height: 600px
+         :click-to-load: overlay
+         :load-button-text: Start Analysis
+
+      # Compact button that expands
+      .. marimo:: heavy_computation.py
+         :height: 800px
+         :click-to-load: compact
+         :load-button-text: Run Heavy Computation

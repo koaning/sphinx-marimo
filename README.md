@@ -60,34 +60,54 @@ def __(mo):
    :width: 100%
 ```
 
-## Sphinx Gallery Integration
+## Click-to-Load Feature
 
-The extension automatically detects Sphinx Gallery and adds "launch marimo" buttons:
+Marimo notebooks use WASM which can be compute-intensive. The extension offers multiple loading modes to optimize performance and user experience:
+
+### Loading Modes
 
 ```python
 # In conf.py
-extensions = [
-    'sphinx_gallery.gen_gallery',  # Must come before sphinx_marimo
-    'sphinx_marimo',
-]
-
-sphinx_gallery_conf = {
-    'examples_dirs': '../gallery_examples',
-    'gallery_dirs': 'auto_examples',
-}
-
-# Control button visibility
-marimo_show_footer_button = True
-marimo_show_sidebar_button = True
-
-# Transform converted notebooks (optional)
-marimo_prepend_markdown = """
-⚠️ **Note**: This notebook was automatically converted from Jupyter.
-"""
-marimo_move_imports_to_top = True  # Ensure imports run first
+marimo_click_to_load = True  # Can be: False, True/"overlay", or "compact"
+marimo_load_button_text = "Load Interactive Notebook"  # Customize button text
 ```
 
-Gallery examples will automatically include "launch marimo" buttons alongside existing Binder/JupyterLite buttons.
+#### Available Modes:
+
+1. **Immediate Loading** (`False`) - Traditional behavior, notebooks load immediately
+2. **Overlay Mode** (`True` or `"overlay"`) - Full-height overlay with centered button (default)
+3. **Compact Mode** (`"compact"`) - Space-saving button that expands when clicked
+
+### Per-Notebook Configuration
+
+Override the global setting for individual notebooks:
+
+```rst
+# Compact mode - saves screen space
+.. marimo:: heavy_computation.py
+   :click-to-load: compact
+   :load-button-text: Run Analysis
+
+# Overlay mode - full height with centered button
+.. marimo:: demo.py
+   :click-to-load: overlay
+   :load-button-text: Start Demo
+
+# Immediate loading - no button
+.. marimo:: quick_example.py
+   :click-to-load: false
+```
+
+### Use Cases:
+
+- **Compact mode**: Perfect for documentation with multiple notebooks on one page
+- **Overlay mode**: Best for standalone demos where the notebook is the focus
+- **Immediate loading**: Ideal for lightweight, essential notebooks
+
+This flexibility allows you to optimize for:
+- Better page load times on mobile devices
+- Reduced bandwidth for users who don't interact with every notebook
+- Improved user experience with progressive disclosure
 
 ## Architecture
 
@@ -95,8 +115,7 @@ The extension works by:
 
 1. **Build Phase**: Converting Marimo `.py` notebooks to WASM during Sphinx build
 2. **Runtime**: Serving notebooks as static files that run in the browser
-3. **Gallery Integration**: Converting Gallery-generated `.ipynb` files to Marimo WASM
-4. **UI Integration**: Injecting launcher buttons into Gallery pages
+3. **Click-to-Load**: Deferring notebook loading until user interaction for better performance
 
 ## Examples
 
@@ -107,7 +126,6 @@ See the [documentation](https://your-docs-url.com) for live examples and full us
 - Python 3.8+
 - Sphinx 4.0+
 - Marimo 0.1.0+
-- For Gallery integration: sphinx-gallery 0.10+
 
 ## Development
 

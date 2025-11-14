@@ -9,7 +9,6 @@ interactive Marimo notebooks directly in your Sphinx documentation.
    :caption: Contents:
 
    examples
-   gallery
    api
 
 Introduction
@@ -35,7 +34,7 @@ Features
 * **Interactive notebooks**: Full Marimo interactivity in your documentation
 * **Static site compatible**: Works with GitHub Pages, Read the Docs, and other static hosts
 * **Customizable embedding**: Control size, theme, and styling of embedded notebooks
-* **Sphinx Gallery integration**: Automatically adds "launch marimo" buttons to Gallery examples
+* **Click-to-load**: Notebooks only load when clicked for better performance
 
 Installation
 ------------
@@ -74,9 +73,9 @@ Add the extension to your ``conf.py``:
    marimo_n_jobs = -1                  # Number of parallel jobs (-1 = auto-detect CPU cores)
    marimo_cache_notebooks = True       # Enable caching to speed up repeated builds
 
-   # Gallery integration button visibility (both default to True)
-   marimo_show_footer_button = True   # Show download button in page footer
-   marimo_show_sidebar_button = True  # Show launch button in right sidebar
+   # Click-to-load configuration (multiple modes available)
+   marimo_click_to_load = True        # Options: False, True/"overlay", "compact"
+   marimo_load_button_text = "Load Interactive Notebook"
 
 Usage
 -----
