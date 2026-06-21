@@ -119,7 +119,7 @@ The extension works by:
 
 ## Examples
 
-See the [documentation](https://your-docs-url.com) for live examples and full usage guide.
+See the [documentation](https://koaning.github.io/sphinx-marimo/) for live examples and full usage guide.
 
 ## Requirements
 
